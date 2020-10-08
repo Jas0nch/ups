@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>admin</title>
+</head>
+<body>
+<!--<sec:authorize access="hasAuthority('login')">-->
+
+  <p sec:authorize="hasAuthority('login')">admin</p>
+<!--</sec:authorize>-->
+<p>user</p>
+</body>
+</html>
