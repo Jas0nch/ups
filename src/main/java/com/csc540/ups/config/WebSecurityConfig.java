@@ -1,4 +1,4 @@
-package com.csc540.ups;
+package com.csc540.ups.config;
 
 import com.csc540.ups.service.impl.UPSDetailsService;
 import org.springframework.context.annotation.Bean;
