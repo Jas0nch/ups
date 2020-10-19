@@ -15,6 +15,15 @@ public class Zone implements Serializable {
 
   private List<Space> spaces;
 
+  public Zone(String uuid, String name, int spaceNum, int startNum,
+      List<Space> spaces) {
+    this.uuid = uuid;
+    this.name = name;
+    this.spaceNum = spaceNum;
+    this.startNum = startNum;
+    this.spaces = spaces;
+  }
+
   public Zone(int spaceNum, int startNum, String name,
       List<Space> spaces) {
     this.uuid = UUID.randomUUID().toString();

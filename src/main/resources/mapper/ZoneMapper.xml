@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csc540.ups.dao.ZoneDao">
+
+  <insert id="insert">
+    insert into upsdb.space (id, spaceNum, type)
+    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
+  </insert>
+
+  <resultMap id="spaceResult" type="com.csc540.ups.entity.Space">
+
+    <id column="id" jdbcType="VARCHAR" property="uuid"></id>
+
+    <result column="spaceNum" jdbcType="INTEGER" property="spaceNum"></result>
+
+    <result column="type" javaType="com.csc540.ups.enums.SpaceType" property="spaceType"
+      typeHandler="org.apache.ibatis.type.EnumTypeHandler"></result>
+
+  </resultMap>
+
+  <select id="select" resultMap="spaceResult">
+    select id, spaceNum, type
+    from upsdb.space
+    where id = #{id}
+  </select>
+
+  <!--    <select id="select" resultType="com.csc540.ups.entity.Space">-->
+  <!--      select id, spaceNum, type-->
+  <!--      from upsdb.space-->
+  <!--      where id=#{uuid}-->
+  <!--    </select>-->
+
+</mapper>

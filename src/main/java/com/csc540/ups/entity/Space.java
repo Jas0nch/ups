@@ -19,7 +19,6 @@ public class Space implements Serializable {
     this(UUID.randomUUID().toString(), spaceNum, spaceType);
   }
 
-
   public Space(int spaceNum) {
     this(spaceNum, SpaceType.regular);
   }
