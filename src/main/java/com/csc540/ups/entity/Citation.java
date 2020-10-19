@@ -1,13 +1,8 @@
 package com.csc540.ups.entity;
 
+import com.csc540.ups.enums.CitationType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-enum CitationType {
-  InvalidPermit,
-  ExpiredPermit,
-  NoPermit
-}
 
 public class Citation implements Serializable {
 

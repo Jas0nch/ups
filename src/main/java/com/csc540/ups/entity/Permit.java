@@ -1,14 +1,10 @@
 package com.csc540.ups.entity;
 
+import com.csc540.ups.enums.PermitType;
+import com.csc540.ups.enums.SpaceType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
-enum PermitType {
-  Visitor,
-  Student,
-  Employee
-}
 
 public class Permit implements Serializable {
 

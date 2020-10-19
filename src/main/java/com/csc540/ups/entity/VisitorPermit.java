@@ -1,5 +1,7 @@
 package com.csc540.ups.entity;
 
+import com.csc540.ups.enums.PermitType;
+import com.csc540.ups.enums.SpaceType;
 import java.time.LocalDateTime;
 
 public class VisitorPermit extends Permit {

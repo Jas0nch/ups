@@ -1,5 +1,6 @@
 package com.csc540.ups.entity;
 
+import com.csc540.ups.enums.ZoneType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +84,3 @@ public class Zone implements Serializable {
   }
 }
 
-enum ZoneType{
-  Student,
-  Employee,
-  Visitor
-}
