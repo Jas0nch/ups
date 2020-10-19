@@ -1,12 +1,14 @@
 package com.csc540.ups.entity;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Space {
+public class Space implements Serializable {
+
   private String uuid;
   private int spaceNum;
   private SpaceType spaceType;
 
-  public Space(int spaceNum, SpaceType spaceType){
+  public Space(int spaceNum, SpaceType spaceType) {
     uuid = UUID.randomUUID().toString();
     this.spaceNum = spaceNum;
     this.spaceType = spaceType;

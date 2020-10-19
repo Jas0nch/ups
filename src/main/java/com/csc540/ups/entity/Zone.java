@@ -1,11 +1,12 @@
 package com.csc540.ups.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-public class Zone {
+public class Zone implements Serializable {
+
   private String uuid;
   private String name;
   private int spaceNum;
@@ -13,18 +14,16 @@ public class Zone {
 
   private List<Space> spaces;
 
-  public Zone(int spaceNum, int startNum, String name){
+  public Zone(int spaceNum, int startNum, String name,
+      List<Space> spaces) {
     this.uuid = UUID.randomUUID().toString();
     this.spaceNum = spaceNum;
     this.startNum = startNum;
     this.name = name;
 
-    spaces = new ArrayList<>();
+    this.spaces = new ArrayList<>();
 
-    for (int i = startNum; i < spaceNum; i++){
-      Space space1 = new Space(i);
-      spaces.add(space1);
-    }
+    this.spaces.addAll(spaces);
   }
 
   public ZoneType getType(){
