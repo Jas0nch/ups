@@ -12,6 +12,9 @@
 </head>
 <body>
 
+<a aria-pressed="true" class="btn btn-secondary btn-lg active" href="/addlot" role="button">Add a
+  Lot</a>
+
 <table class="table">
   <thead>
   <tr>
@@ -19,7 +22,7 @@
     <th scope="col">Lot Address</th>
     <th scope="col">Zone List</th>
     <th scope="col">Assign Zone</th>
-
+    <th scope="col">Space Details</th>
   </tr>
   </thead>
   <tbody>
@@ -30,6 +33,10 @@
     <td>
       <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
          th:href="@{'/assignzone/' + ${p.getId()}}">Assign</a>
+    </td>
+    <td>
+      <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
+         th:href="@{'/spaces/' + ${p.getId()}}">details</a>
     </td>
   </tr>
   </tbody>

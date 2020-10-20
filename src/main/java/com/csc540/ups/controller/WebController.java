@@ -133,7 +133,8 @@ public class WebController implements WebMvcConfigurer {
   }
 
   @GetMapping("/assignzoneform")
-  public String assignzoneform(@RequestParam("total") int total,
+  public String assignzoneform(
+      @RequestParam("total") int total,
       @RequestParam("start") int start,
       @RequestParam("name") String zoneName,
       @RequestParam("lotID") String lotID) {
@@ -141,6 +142,29 @@ public class WebController implements WebMvcConfigurer {
     lotService.AssignZoneToLot(total, start, zoneName, lotID);
 
     return "redirect:/lots";
+  }
+
+  //  @GetMapping("/assigntype/{spaceType}/{id}/{lotID}")
+  @GetMapping("/assigntype/{id}/{lotID}")
+  public String assigntype(
+      @RequestParam("spaceType") SpaceType spaceType,
+      @PathVariable("id") String id,
+      @PathVariable("lotID") String lotID, Model m) {
+
+//    SpaceType spaceType = (SpaceType) m.getAttribute("spaceType");
+    spaceService.updateType(id, spaceType);
+    return "redirect:/spaces/" + lotID;
+  }
+
+  @GetMapping("/spaces/{lotID}")
+  public String spaces(Model m, @PathVariable("lotID") String lotID) {
+    ParkingLot lot = lotService.select(lotID);
+
+    m.addAttribute("list", lot.getSpaces());
+    m.addAttribute("lotID", lotID);
+    m.addAttribute("spaceType", "");
+
+    return "spaces";
   }
 
   @GetMapping("/addlotform")

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <link crossorigin="anonymous"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        rel="stylesheet">
+
+  <title>Spaces</title>
+</head>
+<body>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Space Number</th>
+    <th scope="col">Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="p : ${list}">
+    <th scope="row" th:text="${p.getSpaceNum()}"></th>
+    <td>
+      <form class="form form-inline" method="get" style="margin: 30px"
+            th:action="@{'/assigntype/' + ${p.getUuid()} + '/' + ${lotID} }">
+        <div class="form-group">
+          <select class="form-control form-control-lg" id="spaceType" name="spaceType">
+            <option th:each="state : ${T(com.csc540.ups.enums.SpaceType).values()}"
+                    th:selected="${state==p.getSpaceType()}"
+                    th:text="${state}"
+                    th:value="${state}"
+            >
+            </option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Update</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
