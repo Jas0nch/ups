@@ -5,8 +5,9 @@
 <mapper namespace="com.csc540.ups.dao.SpaceDao">
 
   <insert id="insert">
-    insert into upsdb.space (id, spaceNum, type)
-    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
+    insert into upsdb.space (id, spaceNum, type, zoneID)
+    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            #{zoneID})
   </insert>
 
   <resultMap id="spaceResult" type="com.csc540.ups.entity.Space">
@@ -18,13 +19,28 @@
     <result column="type" javaType="com.csc540.ups.enums.SpaceType" property="spaceType"
       typeHandler="org.apache.ibatis.type.EnumTypeHandler"></result>
 
+    <result column="zoneid" jdbcType="VARCHAR" property="zoneID"></result>
+
+
   </resultMap>
 
   <select id="select" resultMap="spaceResult">
-    select id, spaceNum, type
+    select *
     from upsdb.space
     where id = #{id}
   </select>
+
+  <select id="selectAllByZoneID" resultMap="spaceResult">
+    select *
+    from upsdb.space
+    where zoneid = #{zoneID}
+  </select>
+
+  <update id="update">
+    update upsdb.space
+    set zoneID = #{zoneID}
+    where ID = #{id}
+  </update>
 
   <!--    <select id="select" resultType="com.csc540.ups.entity.Space">-->
   <!--      select id, spaceNum, type-->

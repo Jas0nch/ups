@@ -1,13 +1,17 @@
 package com.csc540.ups.dao;
 
+import com.csc540.ups.entity.Zone;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ZoneDao {
 
-  void insert();
+  void insert(String id, String lotID, String name, int spaceNum, int startNum);
 
-  void select();
+  Zone select(String id);
 
   void remove(String id);
+
+  List<Zone> selectAllByLotID(String lotID);
 }

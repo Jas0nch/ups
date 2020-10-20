@@ -2,8 +2,10 @@ package com.csc540.ups.service.impl;
 
 import com.csc540.ups.dao.SpaceDao;
 import com.csc540.ups.dao.ZoneDao;
+import com.csc540.ups.entity.Space;
 import com.csc540.ups.entity.Zone;
 import com.csc540.ups.service.ZoneService;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +24,35 @@ public class ZoneServiceImpl implements ZoneService {
   }
 
   @Override
-  public void insert(Zone zone) {
+  public List<Zone> selectAllByLotID(String lotID) {
+    List<Zone> zones = zoneDao.selectAllByLotID(lotID);
 
+    for (Zone z : zones) {
+      z.setSpaces(spaceDao.selectAllByZoneID(z.getUuid()));
+    }
+
+    return zones;
   }
 
   @Override
-  public void select(String id) {
+  public void insertAndUpdate(Zone z) {
+    zoneDao.insert(z.getUuid(), z.getLotID(), z.getName(), z.getSpaceNum(), z.getStartNum());
 
+    for (Space s : z.getSpaces()) {
+      spaceDao.update(s.getUuid(), s.getZoneID());
+    }
+  }
+
+  @Override
+  public void insert(Zone z) {
+    zoneDao.insert(z.getUuid(), z.getLotID(), z.getName(), z.getSpaceNum(), z.getStartNum());
+  }
+
+  @Override
+  public Zone select(String id) {
+    Zone z = zoneDao.select(id);
+    z.setSpaces(spaceDao.selectAllByZoneID(id));
+
+    return z;
   }
 }

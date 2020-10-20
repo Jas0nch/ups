@@ -8,19 +8,25 @@ public class Space implements Serializable {
   private String uuid;
   private int spaceNum;
   private SpaceType spaceType;
+  private String zoneID;
 
-  public Space(String uuid, int spaceNum, SpaceType spaceType) {
+  public Space(String uuid, int spaceNum, SpaceType spaceType, String zoneID) {
     this.uuid = uuid;
     this.spaceNum = spaceNum;
     this.spaceType = spaceType;
+    this.zoneID = zoneID;
   }
 
-  public Space(int spaceNum, SpaceType spaceType) {
-    this(UUID.randomUUID().toString(), spaceNum, spaceType);
+  public Space(int spaceNum, SpaceType spaceType, String zoneID) {
+    this(UUID.randomUUID().toString(), spaceNum, spaceType, zoneID);
+  }
+
+  public Space(int spaceNum, String zoneID) {
+    this(spaceNum, SpaceType.regular, zoneID);
   }
 
   public Space(int spaceNum) {
-    this(spaceNum, SpaceType.regular);
+    this(spaceNum, SpaceType.regular, null);
   }
 
   public void setSpaceType(SpaceType spaceType) {
@@ -45,6 +51,14 @@ public class Space implements Serializable {
 
   public SpaceType getSpaceType() {
     return spaceType;
+  }
+
+  public String getZoneID() {
+    return zoneID;
+  }
+
+  public void setZoneID(String zoneID) {
+    this.zoneID = zoneID;
   }
 }
 

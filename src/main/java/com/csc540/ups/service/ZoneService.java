@@ -1,12 +1,17 @@
 package com.csc540.ups.service;
 
 import com.csc540.ups.entity.Zone;
+import java.util.List;
 
 public interface ZoneService {
 
-  void remove(String id);
-
   void insert(Zone zone);
 
-  void select(String id);
+  void insertAndUpdate(Zone zone);
+
+  Zone select(String id);
+
+  void remove(String id);
+
+  List<Zone> selectAllByLotID(String lotID);
 }

@@ -4,32 +4,37 @@
 
 <mapper namespace="com.csc540.ups.dao.ZoneDao">
 
+  <delete id="remove">
+    delete
+    from upsdb.zone
+    where ID = #{id}
+  </delete>
+
   <insert id="insert">
-    insert into upsdb.space (id, spaceNum, type)
-    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
+    insert into upsdb.zone (id, name, spaceNum, startNum, lotID)
+    values (#{id}, #{name}, #{spaceNum}, #{startNum}, #{lotID})
   </insert>
 
-  <resultMap id="spaceResult" type="com.csc540.ups.entity.Space">
+  <resultMap id="zoneResult" type="com.csc540.ups.entity.Zone">
 
     <id column="id" jdbcType="VARCHAR" property="uuid"></id>
+    <result column="name" jdbcType="VARCHAR" property="name"></result>
 
     <result column="spaceNum" jdbcType="INTEGER" property="spaceNum"></result>
-
-    <result column="type" javaType="com.csc540.ups.enums.SpaceType" property="spaceType"
-      typeHandler="org.apache.ibatis.type.EnumTypeHandler"></result>
-
+    <result column="startNum" jdbcType="INTEGER" property="startNum"></result>
+    <result column="lotID" jdbcType="VARCHAR" property="lotID"/>
   </resultMap>
 
-  <select id="select" resultMap="spaceResult">
-    select id, spaceNum, type
-    from upsdb.space
-    where id = #{id}
+  <select id="selectAllByLotID" resultMap="zoneResult">
+    select *
+    from upsdb.zone
+    where lotID = #{lotID}
   </select>
 
-  <!--    <select id="select" resultType="com.csc540.ups.entity.Space">-->
-  <!--      select id, spaceNum, type-->
-  <!--      from upsdb.space-->
-  <!--      where id=#{uuid}-->
-  <!--    </select>-->
+  <select id="select" resultMap="zoneResult">
+    select *
+    from upsdb.zone
+    where ID = #{id}
+  </select>
 
 </mapper>

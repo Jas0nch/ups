@@ -12,11 +12,14 @@ public class Zone implements Serializable {
   private String name;
   private int spaceNum;
   private int startNum;
+  private String lotID;
 
   private List<Space> spaces;
 
-  public Zone(String uuid, String name, int spaceNum, int startNum,
-      List<Space> spaces) {
+  public Zone() {
+  }
+
+  public Zone(String uuid, String name, int spaceNum, int startNum, List<Space> spaces) {
     this.uuid = uuid;
     this.name = name;
     this.spaceNum = spaceNum;
@@ -24,26 +27,28 @@ public class Zone implements Serializable {
     this.spaces = spaces;
   }
 
-  public Zone(int spaceNum, int startNum, String name,
-      List<Space> spaces) {
+  public Zone(int spaceNum, int startNum, String name, List<Space> spaces, String lotID) {
     this.uuid = UUID.randomUUID().toString();
     this.spaceNum = spaceNum;
     this.startNum = startNum;
     this.name = name;
+    this.lotID = lotID;
 
     this.spaces = new ArrayList<>();
 
     this.spaces.addAll(spaces);
+
+    for (Space s : spaces) {
+      s.setZoneID(uuid);
+    }
   }
 
-  public ZoneType getType(){
-    if (name.equals("V")){
+  public ZoneType getType() {
+    if (name.equals("V")) {
       return ZoneType.Visitor;
-    }
-    else if (name.endsWith("S")){
+    } else if (name.endsWith("S")) {
       return ZoneType.Student;
-    }
-    else {
+    } else {
       return ZoneType.Employee;
     }
   }
@@ -80,7 +85,7 @@ public class Zone implements Serializable {
     this.startNum = startNum;
   }
 
-  public int getEndNum(){
+  public int getEndNum() {
     return getSpaceNum() + getStartNum() - 1;
   }
 
@@ -91,5 +96,12 @@ public class Zone implements Serializable {
   public void setSpaces(List<Space> spaces) {
     this.spaces = spaces;
   }
-}
 
+  public String getLotID() {
+    return lotID;
+  }
+
+  public void setLotID(String lotID) {
+    this.lotID = lotID;
+  }
+}
