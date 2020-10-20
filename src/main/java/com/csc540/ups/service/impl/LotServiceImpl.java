@@ -35,7 +35,7 @@ public class LotServiceImpl implements LotService {
     ParkingLot lot = new ParkingLot(name, address, numberOfSpace, beginNumOfSpace, initialZone);
 
     parkingLotDao.insert(
-        lot.getUuid(), lot.getName(), lot.getAddress(), lot.getStartNum(), lot.getSpaceNum());
+        lot.getId(), lot.getName(), lot.getAddress(), lot.getStartNum(), lot.getSpaceNum());
 
     for (Zone z : lot.getZones()) {
       zoneService.insert(z);
@@ -140,7 +140,18 @@ public class LotServiceImpl implements LotService {
   public ParkingLot findByName(String name) {
     ParkingLot lot = parkingLotDao.findByName(name);
 
-    return fillParkingLot(lot, lot.getUuid());
+    return fillParkingLot(lot, lot.getId());
+  }
+
+  @Override
+  public List<ParkingLot> findAll() {
+    List<ParkingLot> list = parkingLotDao.selectAll();
+
+    for (ParkingLot p : list) {
+      fillParkingLot(p, p.getId());
+    }
+
+    return list;
   }
 
   private ParkingLot fillParkingLot(ParkingLot lot, String uuid) {

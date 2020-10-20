@@ -3,6 +3,7 @@ package com.csc540.ups.service;
 import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.Zone;
 import com.csc540.ups.enums.SpaceType;
+import java.util.List;
 
 public interface LotService {
 
@@ -16,4 +17,6 @@ public interface LotService {
   void AssignTypeToSpace(String name, int spaceNum, SpaceType spaceType);
 
   ParkingLot findByName(String name);
+
+  List<ParkingLot> findAll();
 }

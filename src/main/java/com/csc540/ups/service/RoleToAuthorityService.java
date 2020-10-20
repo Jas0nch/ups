@@ -15,16 +15,30 @@ public class RoleToAuthorityService {
     List<GrantedAuthority> student = new ArrayList<>();
     List<GrantedAuthority> employee = new ArrayList<>();
 
-    GrantedAuthority login = new GrantedAuthority() {
+    GrantedAuthority adminAu = new GrantedAuthority() {
       @Override
       public String getAuthority() {
-        return "login";
+        return "admin";
       }
     };
 
-    admin.add(login);
-    student.add(login);
-    employee.add(login);
+    GrantedAuthority studentAu = new GrantedAuthority() {
+      @Override
+      public String getAuthority() {
+        return "student";
+      }
+    };
+
+    GrantedAuthority employeeAu = new GrantedAuthority() {
+      @Override
+      public String getAuthority() {
+        return "employee";
+      }
+    };
+
+    admin.add(adminAu);
+    student.add(studentAu);
+    employee.add(employeeAu);
 
     roleToAuthority.put("admin", admin);
     roleToAuthority.put("student", student);

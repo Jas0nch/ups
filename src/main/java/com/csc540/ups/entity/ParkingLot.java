@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class ParkingLot implements Serializable {
 
-  private String uuid;
+  private String id;
   private String name;
   private String address;
   private int spaceNum;
@@ -23,7 +23,7 @@ public class ParkingLot implements Serializable {
   public ParkingLot(String ID, String name, String address, int startNum, int spaceNum) {
     this.address = address;
     this.name = name;
-    this.uuid = ID;
+    this.id = ID;
     this.spaceNum = spaceNum;
     this.startNum = startNum;
     zones = new ArrayList<>();
@@ -31,7 +31,7 @@ public class ParkingLot implements Serializable {
   }
 
   public ParkingLot(String name, String address, int spaceNum, int startNum, String initialZone) {
-    this.uuid = UUID.randomUUID().toString();
+    this.id = UUID.randomUUID().toString();
     this.name = name;
     this.address = address;
     this.spaceNum = spaceNum;
@@ -40,7 +40,7 @@ public class ParkingLot implements Serializable {
     spaces = new ArrayList<>();
 
     zones = new ArrayList<>();
-    Zone initial = new Zone(spaceNum, startNum, initialZone, spaces, uuid);
+    Zone initial = new Zone(spaceNum, startNum, initialZone, spaces, id);
     zones.add(initial);
 
     for (int i = startNum; i < spaceNum + startNum; i++) {
@@ -59,12 +59,12 @@ public class ParkingLot implements Serializable {
     return new ArrayList<>(res);
   }
 
-  public String getUuid() {
-    return uuid;
+  public String getId() {
+    return id;
   }
 
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getName() {

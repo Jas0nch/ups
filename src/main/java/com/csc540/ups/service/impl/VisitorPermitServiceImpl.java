@@ -76,7 +76,7 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
               PermitType.Visitor,
               spaceNum,
               LocalDateTime.now(),
-              lot.getUuid(),
+              lot.getId(),
               duration,
               phone);
 

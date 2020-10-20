@@ -17,7 +17,7 @@
     <!--    <result column="address" jdbcType="VARCHAR" property="address"></result>-->
     <!--    <result column="spaceNum" jdbcType="INTEGER" property="spaceNum"></result>-->
     <!--    <result column="startNum" jdbcType="INTEGER" property="startNum"></result>-->
-    <id column="id" property="uuid"></id>
+    <id column="id" property="id"></id>
     <result column="name" property="name"></result>
     <result column="address" property="address"></result>
     <result column="spaceNum" property="spaceNum"></result>
@@ -36,6 +36,10 @@
     select *
     from upsdb.lot
     where name = #{name}
+  </select>
+  <select id="selectAll" resultType="com.csc540.ups.entity.ParkingLot">
+    select *
+    from upsdb.lot
   </select>
 
 </mapper>

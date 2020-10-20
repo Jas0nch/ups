@@ -1,6 +1,7 @@
 package com.csc540.ups.controller;
 
 import com.csc540.ups.entity.NonVisitorPermit;
+import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.User;
 import com.csc540.ups.entity.VisitorPermit;
 import com.csc540.ups.enums.SpaceType;
@@ -10,6 +11,7 @@ import com.csc540.ups.service.SpaceService;
 import com.csc540.ups.service.UserService;
 import com.csc540.ups.service.VisitorPermitService;
 import com.csc540.ups.service.ZoneService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,6 +37,10 @@ public class WebController implements WebMvcConfigurer {
 
   @Autowired
   VisitorPermitService visitorPermitService;
+  @Autowired
+  UserService userService;
+  @Autowired
+  NonVisitorPermitService nonVisitorPermitService;
 
   @ModelAttribute
   @RequestMapping(value = "/test")
@@ -50,14 +56,12 @@ public class WebController implements WebMvcConfigurer {
     //
     //    m.addAttribute("third", lot3.getZoneList());
 
-    spaceService.updateType("10aee22e-4c1b-474d-a7a0-1b4c7b7bb156", SpaceType.electric);
+    //    spaceService.updateType("10aee22e-4c1b-474d-a7a0-1b4c7b7bb156", SpaceType.electric);
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    m.addAttribute("role", authentication.getName());
     return "test";
   }
-
-  @Autowired
-  UserService userService;
-  @Autowired
-  NonVisitorPermitService nonVisitorPermitService;
 
   @GetMapping("/searchVisitorPermit")
   public String search(Model m, @RequestParam("identifier") String identifier) {
@@ -83,28 +87,29 @@ public class WebController implements WebMvcConfigurer {
       @RequestParam("color") String color,
       @RequestParam("licensePlate") String licensePlate,
       @RequestParam("phone") String phone) {
-    VisitorPermit permit = visitorPermitService.getPermit(
-        spaceNum,
-        lotName,
-        duration,
-        identifier,
-        spaceType,
-        carNum,
-        year,
-        model,
-        manufacturer,
-        color,
-        licensePlate,
-        phone);
+    VisitorPermit permit =
+        visitorPermitService.getPermit(
+            spaceNum,
+            lotName,
+            duration,
+            identifier,
+            spaceType,
+            carNum,
+            year,
+            model,
+            manufacturer,
+            color,
+            licensePlate,
+            phone);
 
-//    VisitorPermit permit = visitorPermitService.(identifier);
+    //    VisitorPermit permit = visitorPermitService.(identifier);
     //    String permit = "test";
     m.addAttribute("permit", permit);
 
     return "visitor";
   }
 
-  @GetMapping("hello")
+  @GetMapping("/hello")
   public String hello(Model m) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     User user = userService.login(authentication.getName());
@@ -113,5 +118,31 @@ public class WebController implements WebMvcConfigurer {
     m.addAttribute("permit", permit);
 
     return "hello";
+  }
+
+  @GetMapping("/addlot")
+  public String addlotpage() {
+    return "addlot";
+  }
+
+  @GetMapping("/addlotform")
+  public String addlotform(
+      @RequestParam("name") String name,
+      @RequestParam("address") String address,
+      @RequestParam("numberOfSpace") int numberOfSpace,
+      @RequestParam("beginNumOfSpace") int beginNumOfSpace,
+      @RequestParam("initialZone") String initialZone) {
+    lotService.createLot(name, address, numberOfSpace, beginNumOfSpace, initialZone);
+
+    return "redirect:/lots";
+  }
+
+  @GetMapping("/lots")
+  public String lots(Model m) {
+    List<ParkingLot> list = lotService.findAll();
+
+    m.addAttribute("list", list);
+
+    return "lots";
   }
 }
