@@ -6,13 +6,14 @@
     parameterType="com.csc540.ups.entity.VisitorPermit" useGeneratedKeys="true">
     insert into upsdb.vpermit (spaceNum, startTime, lotID,
                                duration, permitType, identifier,
-                               spaceType, carNum, startDate)
+                               spaceType, carNum, startDate, phone)
     values (#{spacenum,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP},
             #{lotid,jdbcType=VARCHAR},
             #{duration,jdbcType=INTEGER}, #{permittype,jdbcType=OTHER},
             #{identifier,jdbcType=VARCHAR},
             #{spacetype,jdbcType=OTHER}, #{carnum,jdbcType=VARCHAR},
-            #{startdate,jdbcType=TIMESTAMP})
+            #{startdate,jdbcType=TIMESTAMP},
+            #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="uuid" keyProperty="uuid"
     parameterType="com.csc540.ups.entity.VisitorPermit" useGeneratedKeys="true">
@@ -45,6 +46,9 @@
       <if test="startDate != null">
         startDate,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="spaceNum != null">
@@ -74,6 +78,9 @@
       <if test="startDate != null">
         #{startdate,jdbcType=TIMESTAMP},
       </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <resultMap id="BaseResultMap" type="com.csc540.ups.entity.VisitorPermit">
@@ -87,6 +94,7 @@
     <result column="spaceType" jdbcType="OTHER" property="spaceType"/>
     <result column="carNum" jdbcType="VARCHAR" property="carNum"/>
     <result column="startDate" jdbcType="TIMESTAMP" property="startDate"/>
+    <result column="phone" jdbcType="VARCHAR" property="phone"/>
   </resultMap>
   <select id="select" resultType="com.csc540.ups.entity.VisitorPermit">
     select *

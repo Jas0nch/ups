@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
 >
-    <head>
-        <title>UPS</title>
-    </head>
-    <body>
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </body>
+<head>
+  <link crossorigin="anonymous"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        rel="stylesheet">
+  <title>UPS</title>
+</head>
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form method="post" th:action="@{/logout}">
+  <input type="submit" value="Sign Out"/>
+</form>
+
+<p th:marginheight="30px" th:marginwidth="30px">
+<div th:if="${permit}!=null">
+  <h3>Permit Info</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Permit ID</th>
+      <th scope="col">Univ ID</th>
+      <th scope="col">Space Type</th>
+      <th scope="col">Car Number</th>
+      <th scope="col">Year</th>
+      <th scope="col">Car Model</th>
+      <th scope="col">Manufacturer</th>
+      <th scope="col">Color</th>
+      <th scope="col">License Plate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row" th:text="${permit.getIdentifier()}"></th>
+      <td th:text="${permit.getUnivid()}"/>
+      <td th:text="${permit.getSpaceType()}"/>
+      <td th:text="${permit.getCarNum()}"/>
+      <td th:text="${permit.getVehicleInfo().getYear()}"/>
+      <td th:text="${permit.getVehicleInfo().getModel()}"/>
+      <td th:text="${permit.getVehicleInfo().getManufacturer()}"/>
+      <td th:text="${permit.getVehicleInfo().getColor()}"/>
+      <td th:text="${permit.getVehicleInfo().getLicensePlate()}"/>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--citation -->
+
+</p>
+</body>
 </html>

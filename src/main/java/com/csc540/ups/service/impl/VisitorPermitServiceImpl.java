@@ -44,7 +44,8 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
       String model,
       String manufacturer,
       String color,
-      String licensePlate) {
+      String licensePlate,
+      String phone) {
     ParkingLot lot = lotService.findByName(lotName);
 
     if (vpermitDao.select(identifier) == null) {
@@ -76,7 +77,8 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
               spaceNum,
               LocalDateTime.now(),
               lot.getUuid(),
-              duration);
+              duration,
+              phone);
 
       vpermitDao.insert(visitorPermit);
 

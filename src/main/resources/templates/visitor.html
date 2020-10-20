@@ -2,62 +2,134 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
 >
 <head>
+  <link crossorigin="anonymous"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        rel="stylesheet">
+
+  <!--  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>-->
+  <!--  <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
   <title>UPS</title>
-  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-  <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<form method="get" th:action="@{/searchVisitorPermit}">
-  <div><label> Permit ID : <input name="identifier" type="text"/> </label></div>
-  <!--  <div><label> Password: <input type="password" name="password"/> </label></div>-->
-  <div><input type="submit" value="Search"/></div>
-</form>
+<div>
+  <form class="form-horizontal" method="get" style="margin: 30px"
+        th:action="@{/searchVisitorPermit}">
+    <div class="form-group">
+      <label for="identifier">Permit ID:</label>
+      <input class="form-control" id="identifier" name="identifier" placeholder="Enter Permit ID"
+             type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+</div>
 
-<div th:if="${permit}==null">
-  <form action="/requestVisitorPermit" class="form-horizontal" method="get"
-        style="margin-top: 30px">
-    <div><label> Permit ID : <input name="identifier" type="text"/> </label></div>
-    <div><input type="submit" value="Request"/></div>
-    <!--    <input type="hidden" name="_method" value="put">-->
-    <!--    &lt;!&ndash; lot name &ndash;&gt;-->
-    <!--    <div class="form-group">-->
-    <!--      <label for="lotName3" class="col-sm-4 control-label">Lot Name</label>-->
-    <!--      <div class="col-sm-7">-->
-    <!--        <input type="text" class="form-control" id="lotName3" placeholder="Lot Name" name="lotName"-->
-    <!--               required="required">-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    &lt;!&ndash; space id &ndash;&gt;-->
-    <!--    <div class="form-group col-sm-offset-2">-->
-    <!--      <label for="spaceId" class="col-sm-4 control-label">Space ID</label>-->
-    <!--      <div class="col-sm-7">-->
-    <!--        <input type="text" class="form-control" id="spaceId" placeholder="Space ID" name="spaceId"-->
-    <!--               required="required">-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    &lt;!&ndash; type &ndash;&gt;-->
-    <!--    <div class="form-group col-sm-offset-2">-->
-    <!--      <label class="col-sm-4 control-label" for="selectZones1">Select Type</label>-->
-    <!--      <div class="col-sm-7">-->
-    <!--        <select id="selectType" name="type">-->
-    <!--          <option value="Regular">Regular</option>-->
-    <!--          <option value="Handicapped">Handicapped</option>-->
-    <!--          <option value="Electric">Electric</option>-->
-    <!--        </select>-->
-    <!--      </div>-->
-    <!--    </div>-->
+<div th:if="${permit} == null">
+  <h3>Request Permit for Visitor</h3>
+  <form class="form-horizontal" method="get" style="margin: 30px"
+        th:action="@{/requestVisitorPermit}">
+    <div class="form-group">
+      <label for="identifier2">Permit ID:</label>
+      <input class="form-control" id="identifier2" name="identifier" placeholder="Enter Permit ID"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="spaceNum">Space Number:</label>
+      <input class="form-control" id="spaceNum" name="spaceNum" placeholder="Enter Space Number"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="lotName">Lot Name:</label>
+      <input class="form-control" id="lotName" name="lotName" placeholder="Enter Lot Name"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="duration">Duration: (in hours)</label>
+      <input class="form-control" id="duration" name="duration" placeholder="Enter Duration"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="spaceType">Space Type:</label>
 
-    <!--    <div class="form-group">-->
-    <!--      <div class="col-sm-offset-4 col-sm-8">-->
-    <!--        <button type="submit" class="btn btn-primary">Submit</button>-->
-    <!--      </div>-->
-    <!--    </div>-->
+      <select class="form-control form-control-lg" id="spaceType" name="spaceType">
+        <option>regular</option>
+        <option>electric</option>
+        <option>handicap</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="carNum">Car Number:</label>
+      <input class="form-control" id="carNum" name="carNum" placeholder="Enter Car Number"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="year">Year:</label>
+      <input class="form-control" id="year" name="year" placeholder="Enter Year"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="model">Model:</label>
+      <input class="form-control" id="model" name="model" placeholder="Enter Model"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="manufacturer">Manufacturer:</label>
+      <input class="form-control" id="manufacturer" name="manufacturer"
+             placeholder="Enter Manufacturer"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="color">Color:</label>
+      <input class="form-control" id="color" name="color" placeholder="Enter Color"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="licensePlate">License Plate:</label>
+      <input class="form-control" id="licensePlate" name="licensePlate"
+             placeholder="Enter License Plate"
+             type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Request</button>
   </form>
 </div>
 
 <div th:if="${permit}!=null">
-  ${permit}
+  <h3>Permit Info</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Permit ID</th>
+      <th scope="col">Space Number</th>
+      <th scope="col">Lot Name</th>
+      <th scope="col">Duration: (in hours)</th>
+      <th scope="col">Space Type</th>
+      <th scope="col">Car Number</th>
+      <th scope="col">Year</th>
+      <th scope="col">Car Model</th>
+      <th scope="col">Manufacturer</th>
+      <th scope="col">Color</th>
+      <th scope="col">License Plate</th>
+      <th scope="col">Phone</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row" th:text="${permit.getIdentifier()}"></th>
+      <td th:text="${permit.getSpaceNum()}"></td>
+      <td th:text="${permit.getLotName()}"/>
+      <td th:text="${permit.getDuration()}"/>
+      <td th:text="${permit.getSpaceType()}"/>
+      <td th:text="${permit.getCarNum()}"/>
+      <td th:text="${permit.getVehicleInfo().getYear()}"/>
+      <td th:text="${permit.getVehicleInfo().getModel()}"/>
+      <td th:text="${permit.getVehicleInfo().getManufacturer()}"/>
+      <td th:text="${permit.getVehicleInfo().getColor()}"/>
+      <td th:text="${permit.getVehicleInfo().getLicensePlate()}"/>
+      <td th:text="${permit.getPhone()}"/>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 

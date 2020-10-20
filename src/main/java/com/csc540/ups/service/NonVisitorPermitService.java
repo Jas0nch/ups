@@ -17,4 +17,6 @@ public interface NonVisitorPermitService {
       String manufacturer,
       String color,
       String licensePlate);
+
+  NonVisitorPermit getPermitByUUID(String univid);
 }

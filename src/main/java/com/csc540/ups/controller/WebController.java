@@ -1,11 +1,18 @@
 package com.csc540.ups.controller;
 
+import com.csc540.ups.entity.NonVisitorPermit;
+import com.csc540.ups.entity.User;
+import com.csc540.ups.entity.VisitorPermit;
 import com.csc540.ups.enums.SpaceType;
 import com.csc540.ups.service.LotService;
+import com.csc540.ups.service.NonVisitorPermitService;
 import com.csc540.ups.service.SpaceService;
+import com.csc540.ups.service.UserService;
 import com.csc540.ups.service.VisitorPermitService;
 import com.csc540.ups.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,23 +54,64 @@ public class WebController implements WebMvcConfigurer {
     return "test";
   }
 
+  @Autowired
+  UserService userService;
+  @Autowired
+  NonVisitorPermitService nonVisitorPermitService;
+
   @GetMapping("/searchVisitorPermit")
   public String search(Model m, @RequestParam("identifier") String identifier) {
-//    VisitorPermit permit = visitorPermitService.search(identifier);
-    String permit = "test";
+    VisitorPermit permit = visitorPermitService.search(identifier);
+    //    String permit = "test";
     m.addAttribute("permit", permit);
 
     return "visitor";
   }
 
   @GetMapping("/requestVisitorPermit")
-  public String request(Model m, @RequestParam("identifier") String identifier) {
-//    visitorPermitService.getPermit(1, "", 8, identifier, SpaceType.regular, "", "", "", "", "", "");
+  public String request(
+      Model m,
+      @RequestParam("identifier") String identifier,
+      @RequestParam("spaceNum") int spaceNum,
+      @RequestParam("lotName") String lotName,
+      @RequestParam("duration") int duration,
+      @RequestParam("spaceType") SpaceType spaceType,
+      @RequestParam("carNum") String carNum,
+      @RequestParam("year") String year,
+      @RequestParam("model") String model,
+      @RequestParam("manufacturer") String manufacturer,
+      @RequestParam("color") String color,
+      @RequestParam("licensePlate") String licensePlate,
+      @RequestParam("phone") String phone) {
+    VisitorPermit permit = visitorPermitService.getPermit(
+        spaceNum,
+        lotName,
+        duration,
+        identifier,
+        spaceType,
+        carNum,
+        year,
+        model,
+        manufacturer,
+        color,
+        licensePlate,
+        phone);
 
-//    VisitorPermit permit = visitorPermitService.search(identifier);
-    String permit = "test";
+//    VisitorPermit permit = visitorPermitService.(identifier);
+    //    String permit = "test";
     m.addAttribute("permit", permit);
 
     return "visitor";
+  }
+
+  @GetMapping("hello")
+  public String hello(Model m) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.login(authentication.getName());
+
+    NonVisitorPermit permit = nonVisitorPermitService.getPermitByUUID(user.getId());
+    m.addAttribute("permit", permit);
+
+    return "hello";
   }
 }

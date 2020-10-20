@@ -3,19 +3,17 @@ package com.csc540.ups.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.annotation.Resource;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 public class RoleToAuthorityService {
-  private static HashMap<String, List<GrantedAuthority>> roleToAuthority;
+  private static final HashMap<String, List<GrantedAuthority>> roleToAuthority;
 
-  static{
+  static {
     roleToAuthority = new HashMap<>();
 
-    List<GrantedAuthority> user = new ArrayList<>();
     List<GrantedAuthority> admin = new ArrayList<>();
+    List<GrantedAuthority> student = new ArrayList<>();
+    List<GrantedAuthority> employee = new ArrayList<>();
 
     GrantedAuthority login = new GrantedAuthority() {
       @Override
@@ -24,11 +22,13 @@ public class RoleToAuthorityService {
       }
     };
 
-//    user.add(login);
     admin.add(login);
+    student.add(login);
+    employee.add(login);
 
-    roleToAuthority.put("user", user);
     roleToAuthority.put("admin", admin);
+    roleToAuthority.put("student", student);
+    roleToAuthority.put("employee", employee);
   }
 
   public static List<GrantedAuthority> getAuthorityByRole(String role){

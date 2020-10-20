@@ -3,7 +3,13 @@ package com.csc540.ups.entity;
 import com.csc540.ups.enums.CitationType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Citation implements Serializable {
 
   // citation number
@@ -15,6 +21,7 @@ public class Citation implements Serializable {
   private String lotID;
   private LocalDateTime time;
   private CitationType type;
+  private String status;
 
   public int getFee() {
     if (type == CitationType.ExpiredPermit) {
@@ -25,69 +32,5 @@ public class Citation implements Serializable {
       return 40;
     }
     return 0;
-  }
-
-  public String getUuid() {
-    return uuid;
-  }
-
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
-  }
-
-  public String getCarNum() {
-    return carNum;
-  }
-
-  public void setCarNum(String carNum) {
-    this.carNum = carNum;
-  }
-
-  public String getModel() {
-    return model;
-  }
-
-  public void setModel(String model) {
-    this.model = model;
-  }
-
-  public String getColor() {
-    return color;
-  }
-
-  public void setColor(String color) {
-    this.color = color;
-  }
-
-  public LocalDateTime getDate() {
-    return date;
-  }
-
-  public void setDate(LocalDateTime date) {
-    this.date = date;
-  }
-
-  public String getLotID() {
-    return lotID;
-  }
-
-  public void setLotID(String lotID) {
-    this.lotID = lotID;
-  }
-
-  public LocalDateTime getTime() {
-    return time;
-  }
-
-  public void setTime(LocalDateTime time) {
-    this.time = time;
-  }
-
-  public CitationType getType() {
-    return type;
-  }
-
-  public void setType(CitationType type) {
-    this.type = type;
   }
 }

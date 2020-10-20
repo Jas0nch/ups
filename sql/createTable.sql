@@ -60,7 +60,8 @@ create table vpermit
     uuid       varchar(36) primary key,
     spaceType  enum ('regular','electric','handicap'),
     carNum     varchar(36),
-    startDate  DATETIME
+    startDate  DATETIME,
+    phone      varchar(36)
 );
 
 create table nvpermit

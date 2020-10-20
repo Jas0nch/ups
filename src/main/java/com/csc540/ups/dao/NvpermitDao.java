@@ -14,6 +14,8 @@ public interface NvpermitDao {
 
   NonVisitorPermit selectByPrimaryKey(String uuid);
 
+  NonVisitorPermit selectByUnivID(String univid);
+
   int updateByPrimaryKeySelective(NonVisitorPermit record);
 
   int updateByPrimaryKey(NonVisitorPermit record);

@@ -49,6 +49,11 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
         vehicle.getColor(),
         vehicle.getLicensePlate());
 
-    return null;
+    return nonVisitorPermit;
+  }
+
+  @Override
+  public NonVisitorPermit getPermitByUUID(String univid) {
+    return nvpermitDao.selectByUnivID(univid);
   }
 }
