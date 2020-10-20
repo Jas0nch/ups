@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -123,6 +124,23 @@ public class WebController implements WebMvcConfigurer {
   @GetMapping("/addlot")
   public String addlotpage() {
     return "addlot";
+  }
+
+  @GetMapping("/assignzone/{id}")
+  public String assign(@PathVariable("id") String id, Model m) {
+    m.addAttribute("id", id);
+    return "assignzone";
+  }
+
+  @GetMapping("/assignzoneform")
+  public String assignzoneform(@RequestParam("total") int total,
+      @RequestParam("start") int start,
+      @RequestParam("name") String zoneName,
+      @RequestParam("lotID") String lotID) {
+
+    lotService.AssignZoneToLot(total, start, zoneName, lotID);
+
+    return "redirect:/lots";
   }
 
   @GetMapping("/addlotform")

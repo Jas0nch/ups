@@ -18,6 +18,8 @@
     <th scope="col">Lot Name</th>
     <th scope="col">Lot Address</th>
     <th scope="col">Zone List</th>
+    <th scope="col">Assign Zone</th>
+
   </tr>
   </thead>
   <tbody>
@@ -25,6 +27,10 @@
     <th scope="row" th:text="${p.getName()}"></th>
     <td th:text="${p.getAddress()}"></td>
     <td th:text="${p.getZoneListString()}"/>
+    <td>
+      <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
+         th:href="@{'/assignzone/' + ${p.getId()}}">Assign</a>
+    </td>
   </tr>
   </tbody>
 </table>
