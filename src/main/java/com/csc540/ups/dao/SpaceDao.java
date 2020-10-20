@@ -18,4 +18,6 @@ public interface SpaceDao {
   List<Space> selectAllByZoneID(@Param("zoneID") String zoneID);
 
   void update(@Param("id") String id, @Param("zoneID") String zoneID);
+
+  void updateType(@Param("id") String id, @Param("type") SpaceType type);
 }

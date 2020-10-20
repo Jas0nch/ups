@@ -3,7 +3,9 @@ package com.csc540.ups.entity;
 import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
 import java.time.LocalDateTime;
+import lombok.Data;
 
+@Data
 public class VisitorPermit extends Permit {
 
   private int spaceNum;
@@ -11,9 +13,19 @@ public class VisitorPermit extends Permit {
   private String lotID;
   private int duration; // in hours
 
-  public VisitorPermit(String identifier, SpaceType spaceType, String carNum,
-      LocalDateTime startDate, PermitType permitType, int spaceNum, LocalDateTime startTime,
-      String lotID, int duration) {
+  public VisitorPermit() {
+  }
+
+  public VisitorPermit(
+      String identifier,
+      SpaceType spaceType,
+      String carNum,
+      LocalDateTime startDate,
+      PermitType permitType,
+      int spaceNum,
+      LocalDateTime startTime,
+      String lotID,
+      int duration) {
     super(identifier, spaceType, carNum, startDate, permitType);
 
     this.spaceNum = spaceNum;
@@ -22,13 +34,17 @@ public class VisitorPermit extends Permit {
     this.duration = duration;
   }
 
-  public VisitorPermit(String identifier, String carNum, LocalDateTime startDate,
-      PermitType permitType) {
+  public VisitorPermit(
+      String identifier, String carNum, LocalDateTime startDate, PermitType permitType) {
     super(identifier, carNum, startDate, permitType);
   }
 
-  public VisitorPermit(String identifier, SpaceType spaceType, String carNum,
-      LocalDateTime startDate, PermitType permitType) {
+  public VisitorPermit(
+      String identifier,
+      SpaceType spaceType,
+      String carNum,
+      LocalDateTime startDate,
+      PermitType permitType) {
     super(identifier, spaceType, carNum, startDate, permitType);
   }
 

@@ -2,6 +2,7 @@ package com.csc540.ups.service;
 
 import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.Zone;
+import com.csc540.ups.enums.SpaceType;
 
 public interface LotService {
 
@@ -11,4 +12,8 @@ public interface LotService {
   Zone AssignZoneToLot(int total, int start, String zoneName, String lotID);
 
   ParkingLot select(String id);
+
+  void AssignTypeToSpace(String name, int spaceNum, SpaceType spaceType);
+
+  ParkingLot findByName(String name);
 }

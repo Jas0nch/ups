@@ -3,11 +3,16 @@ package com.csc540.ups.entity;
 import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
 import java.time.LocalDateTime;
+import lombok.Data;
 
+@Data
 public class NonVisitorPermit extends Permit {
 
   private String univid;
   private String carNum2;
+
+  public NonVisitorPermit() {
+  }
 
   public NonVisitorPermit(
       String identifier,

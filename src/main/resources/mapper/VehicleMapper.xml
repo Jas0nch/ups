@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csc540.ups.dao.VehicleDao">
+
+  <insert id="insert">
+    insert into upsdb.vehicle (carNum, manufacturer, model, year, color, licensePlate)
+    values (#{carNum}, #{manufacturer}, #{model}, #{year}, #{color}, #{licensePlate})
+  </insert>
+
+  <select id="select" resultType="com.csc540.ups.entity.Vehicle">
+    select *
+    from upsdb.vehicle
+    where carNum = #{carNum}
+  </select>
+</mapper>

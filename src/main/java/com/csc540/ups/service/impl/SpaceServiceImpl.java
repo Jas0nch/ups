@@ -2,6 +2,7 @@ package com.csc540.ups.service.impl;
 
 import com.csc540.ups.dao.SpaceDao;
 import com.csc540.ups.entity.Space;
+import com.csc540.ups.enums.SpaceType;
 import com.csc540.ups.service.SpaceService;
 import java.util.List;
 import javax.annotation.Resource;
@@ -31,6 +32,11 @@ public class SpaceServiceImpl implements SpaceService {
   @Override
   public void update(Space space) {
     spaceDao.update(space.getUuid(), space.getZoneID());
+  }
+
+  @Override
+  public void updateType(String id, SpaceType spaceType) {
+    spaceDao.updateType(id, spaceType);
   }
 
 

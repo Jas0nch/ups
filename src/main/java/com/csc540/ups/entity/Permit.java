@@ -5,7 +5,9 @@ import com.csc540.ups.enums.SpaceType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import lombok.Data;
 
+@Data
 public class Permit implements Serializable {
 
   protected PermitType permitType;
@@ -14,6 +16,9 @@ public class Permit implements Serializable {
   private SpaceType spaceType;
   private String carNum;
   private LocalDateTime startDate;
+
+  public Permit() {
+  }
 
   public Permit(String identifier, String carNum, LocalDateTime startDate, PermitType permitType) {
     this(identifier, SpaceType.regular, carNum, startDate, permitType);

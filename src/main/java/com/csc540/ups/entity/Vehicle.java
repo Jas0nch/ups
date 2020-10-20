@@ -3,7 +3,6 @@ package com.csc540.ups.entity;
 import java.io.Serializable;
 
 public class Vehicle implements Serializable {
-
   private String carNum;
   private String manufacturer;
   private String model;

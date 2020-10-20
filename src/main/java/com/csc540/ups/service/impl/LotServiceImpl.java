@@ -4,6 +4,7 @@ import com.csc540.ups.dao.ParkingLotDao;
 import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.Space;
 import com.csc540.ups.entity.Zone;
+import com.csc540.ups.enums.SpaceType;
 import com.csc540.ups.service.LotService;
 import com.csc540.ups.service.SpaceService;
 import com.csc540.ups.service.ZoneService;
@@ -132,7 +133,18 @@ public class LotServiceImpl implements LotService {
   public ParkingLot select(String id) {
     ParkingLot lot = parkingLotDao.select(id);
 
-    lot.setZones(zoneService.selectAllByLotID(id));
+    return fillParkingLot(lot, id);
+  }
+
+  @Override
+  public ParkingLot findByName(String name) {
+    ParkingLot lot = parkingLotDao.findByName(name);
+
+    return fillParkingLot(lot, lot.getUuid());
+  }
+
+  private ParkingLot fillParkingLot(ParkingLot lot, String uuid) {
+    lot.setZones(zoneService.selectAllByLotID(uuid));
 
     List<Space> spaces = new ArrayList<>();
 
@@ -143,5 +155,16 @@ public class LotServiceImpl implements LotService {
     lot.setSpaces(spaces);
 
     return lot;
+  }
+
+  @Override
+  public void AssignTypeToSpace(String name, int spaceNum, SpaceType spaceType) {
+    ParkingLot lot = parkingLotDao.findByName(name);
+
+    for (Space s : lot.getSpaces()) {
+      if (s.getSpaceNum() == spaceNum) {
+        spaceService.updateType(s.getUuid(), spaceType);
+      }
+    }
   }
 }

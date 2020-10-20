@@ -3,13 +3,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.csc540.ups.dao.SpaceDao">
-
-  <insert id="insert">
-    insert into upsdb.space (id, spaceNum, type, zoneID)
-    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
-            #{zoneID})
-  </insert>
-
   <resultMap id="spaceResult" type="com.csc540.ups.entity.Space">
 
     <id column="id" jdbcType="VARCHAR" property="uuid"></id>
@@ -23,6 +16,13 @@
 
 
   </resultMap>
+
+  <insert id="insert">
+    insert into upsdb.space (id, spaceNum, type, zoneID)
+    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            #{zoneID})
+  </insert>
+
 
   <select id="select" resultMap="spaceResult">
     select *
@@ -42,10 +42,9 @@
     where ID = #{id}
   </update>
 
-  <!--    <select id="select" resultType="com.csc540.ups.entity.Space">-->
-  <!--      select id, spaceNum, type-->
-  <!--      from upsdb.space-->
-  <!--      where id=#{uuid}-->
-  <!--    </select>-->
-
+  <update id="updateType">
+    update upsdb.space
+    set type = #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+    where ID = #{id}
+  </update>
 </mapper>

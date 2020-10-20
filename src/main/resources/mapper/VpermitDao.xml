@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csc540.ups.dao.VpermitDao">
+  <insert id="insert" keyColumn="uuid" keyProperty="uuid"
+    parameterType="com.csc540.ups.entity.VisitorPermit" useGeneratedKeys="true">
+    insert into upsdb.vpermit (spaceNum, startTime, lotID,
+                               duration, permitType, identifier,
+                               spaceType, carNum, startDate)
+    values (#{spacenum,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP},
+            #{lotid,jdbcType=VARCHAR},
+            #{duration,jdbcType=INTEGER}, #{permittype,jdbcType=OTHER},
+            #{identifier,jdbcType=VARCHAR},
+            #{spacetype,jdbcType=OTHER}, #{carnum,jdbcType=VARCHAR},
+            #{startdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="uuid" keyProperty="uuid"
+    parameterType="com.csc540.ups.entity.VisitorPermit" useGeneratedKeys="true">
+    insert into upsdb.vpermit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="spaceNum != null">
+        spaceNum,
+      </if>
+      <if test="startTime != null">
+        startTime,
+      </if>
+      <if test="lotID != null">
+        lotID,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="permitType != null">
+        permitType,
+      </if>
+      <if test="identifier != null">
+        identifier,
+      </if>
+      <if test="spaceType != null">
+        spaceType,
+      </if>
+      <if test="carNum != null">
+        carNum,
+      </if>
+      <if test="startDate != null">
+        startDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="spaceNum != null">
+        #{spacenum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lotID != null">
+        #{lotid,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="permitType != null">
+        #{permittype,jdbcType=OTHER},
+      </if>
+      <if test="identifier != null">
+        #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceType != null">
+        #{spacetype,jdbcType=OTHER},
+      </if>
+      <if test="carNum != null">
+        #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.csc540.ups.entity.VisitorPermit">
+    <result column="spaceNum" jdbcType="INTEGER" property="spaceNum"/>
+    <result column="startTime" jdbcType="TIMESTAMP" property="startTime"/>
+    <result column="lotID" jdbcType="VARCHAR" property="lotID"/>
+    <result column="duration" jdbcType="INTEGER" property="duration"/>
+    <result column="permitType" jdbcType="OTHER" property="permitType"/>
+    <result column="identifier" jdbcType="VARCHAR" property="identifier"/>
+    <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+    <result column="spaceType" jdbcType="OTHER" property="spaceType"/>
+    <result column="carNum" jdbcType="VARCHAR" property="carNum"/>
+    <result column="startDate" jdbcType="TIMESTAMP" property="startDate"/>
+  </resultMap>
+  <select id="select" resultType="com.csc540.ups.entity.VisitorPermit">
+    select *
+    from upsdb.vpermit
+    where identifier = #{identifier}
+  </select>
+</mapper>

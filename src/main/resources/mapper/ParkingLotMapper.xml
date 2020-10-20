@@ -31,4 +31,11 @@
     where id = #{id}
   </select>
 
+  <select id="findByName" resultMap="lotResult">
+    <!--  <select id="select" resultType="com.csc540.ups.entity.ParkingLot">-->
+    select *
+    from upsdb.lot
+    where name = #{name}
+  </select>
+
 </mapper>
