@@ -82,7 +82,7 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
 
       vpermitDao.insert(visitorPermit);
 
-      Vehicle vehicle = new Vehicle(carNum, color, licensePlate, manufacturer, model, year);
+      Vehicle vehicle = new Vehicle(carNum, manufacturer, model, year, color, licensePlate);
 
       vehicleDao.insert(
           vehicle.getCarNum(),
@@ -100,6 +100,17 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
 
   @Override
   public VisitorPermit search(String identifier) {
-    return vpermitDao.select(identifier);
+    VisitorPermit permit = vpermitDao.select(identifier);
+    if (permit != null) {
+      Vehicle vehicle = vehicleDao.select(permit.getCarNum());
+      permit.setVehicle(vehicle);
+    }
+    return permit;
+  }
+
+  @Override
+  public String getLotName(String identifier) {
+    String lotID = search(identifier).getLotID();
+    return lotService.select(lotID).getName();
   }
 }

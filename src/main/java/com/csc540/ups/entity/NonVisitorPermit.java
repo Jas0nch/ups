@@ -3,13 +3,13 @@ package com.csc540.ups.entity;
 import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
 import java.time.LocalDateTime;
-import lombok.Data;
 
-@Data
 public class NonVisitorPermit extends Permit {
 
   private String univid;
   private String carNum2;
+
+  private Vehicle vehicle2;
 
   public NonVisitorPermit() {
   }
@@ -70,5 +70,13 @@ public class NonVisitorPermit extends Permit {
 
   public void setCarNum2(String carNum2) {
     this.carNum2 = carNum2;
+  }
+
+  public Vehicle getVehicle2() {
+    return vehicle2;
+  }
+
+  public void setVehicle2(Vehicle vehicle2) {
+    this.vehicle2 = vehicle2;
   }
 }

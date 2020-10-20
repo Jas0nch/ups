@@ -4,6 +4,7 @@ import com.csc540.ups.entity.NonVisitorPermit;
 import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.User;
 import com.csc540.ups.entity.VisitorPermit;
+import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
 import com.csc540.ups.service.LotService;
 import com.csc540.ups.service.NonVisitorPermitService;
@@ -69,6 +70,7 @@ public class WebController implements WebMvcConfigurer {
     VisitorPermit permit = visitorPermitService.search(identifier);
     //    String permit = "test";
     m.addAttribute("permit", permit);
+    m.addAttribute("lotname", visitorPermitService.getLotName(permit.getIdentifier()));
 
     return "visitor";
   }
@@ -121,6 +123,43 @@ public class WebController implements WebMvcConfigurer {
     return "hello";
   }
 
+  @GetMapping("/assignpermit")
+  public String assignPermit() {
+    return "assignPermit";
+  }
+
+  @GetMapping("/assignpermitform")
+  public String assignpermitform(
+      @RequestParam("univid") String univid,
+      @RequestParam("identifier") String identifier,
+      @RequestParam("spaceType") SpaceType spaceType,
+      @RequestParam("carNum") String carNum,
+      @RequestParam("year") String year,
+      @RequestParam("model") String model,
+      @RequestParam("manufacturer") String manufacturer,
+      @RequestParam("color") String color,
+      @RequestParam("licensePlate") String licensePlate) {
+
+    User user = userService.findByID(univid);
+
+    PermitType permitType =
+        user.getRole().equals("student") ? PermitType.Student : PermitType.Employee;
+
+    nonVisitorPermitService.assignPermit(
+        user.getId(),
+        permitType,
+        identifier,
+        spaceType,
+        carNum,
+        year,
+        model,
+        manufacturer,
+        color,
+        licensePlate);
+
+    return "redirect:/hello";
+  }
+
   @GetMapping("/addlot")
   public String addlotpage() {
     return "addlot";
@@ -144,14 +183,14 @@ public class WebController implements WebMvcConfigurer {
     return "redirect:/lots";
   }
 
-  //  @GetMapping("/assigntype/{spaceType}/{id}/{lotID}")
   @GetMapping("/assigntype/{id}/{lotID}")
   public String assigntype(
       @RequestParam("spaceType") SpaceType spaceType,
       @PathVariable("id") String id,
-      @PathVariable("lotID") String lotID, Model m) {
+      @PathVariable("lotID") String lotID,
+      Model m) {
 
-//    SpaceType spaceType = (SpaceType) m.getAttribute("spaceType");
+    //    SpaceType spaceType = (SpaceType) m.getAttribute("spaceType");
     spaceService.updateType(id, spaceType);
     return "redirect:/spaces/" + lotID;
   }

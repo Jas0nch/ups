@@ -2,10 +2,8 @@ package com.csc540.ups.entity;
 
 import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
-import com.csc540.ups.service.LotService;
 import java.time.LocalDateTime;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 public class VisitorPermit extends Permit {
@@ -14,8 +12,6 @@ public class VisitorPermit extends Permit {
   private LocalDateTime startTime;
   private String lotID;
   private int duration; // in hours
-  @Autowired
-  LotService lotService;
   private String phone;
 
   public VisitorPermit() {
@@ -65,7 +61,5 @@ public class VisitorPermit extends Permit {
     return getExpirationTime();
   }
 
-  public String getLotName() {
-    return lotService.select(lotID).getName();
-  }
+
 }

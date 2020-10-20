@@ -5,7 +5,9 @@ import com.csc540.ups.enums.SpaceType;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @Mapper
 public interface SpaceDao {
 

@@ -3,11 +3,13 @@ package com.csc540.ups.dao;
 import com.csc540.ups.entity.Vehicle;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @Mapper
 public interface VehicleDao {
 
-  Vehicle insert(
+  void insert(
       @Param("carNum") String carNum,
       @Param("manufacturer") String manufacturer,
       @Param("model") String model,

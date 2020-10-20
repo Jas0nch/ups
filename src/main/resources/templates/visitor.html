@@ -21,7 +21,7 @@
       <input class="form-control" id="identifier" name="identifier" placeholder="Enter Permit ID"
              type="text">
     </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit">Search</button>
   </form>
 </div>
 
@@ -90,6 +90,12 @@
              placeholder="Enter License Plate"
              type="text">
     </div>
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input class="form-control" id="phone" name="phone"
+             placeholder="Enter Phone"
+             type="text">
+    </div>
     <button class="btn btn-primary" type="submit">Request</button>
   </form>
 </div>
@@ -117,15 +123,15 @@
     <tr>
       <th scope="row" th:text="${permit.getIdentifier()}"></th>
       <td th:text="${permit.getSpaceNum()}"></td>
-      <td th:text="${permit.getLotName()}"/>
+      <td th:text="${lotname}"/>
       <td th:text="${permit.getDuration()}"/>
       <td th:text="${permit.getSpaceType()}"/>
       <td th:text="${permit.getCarNum()}"/>
-      <td th:text="${permit.getVehicleInfo().getYear()}"/>
-      <td th:text="${permit.getVehicleInfo().getModel()}"/>
-      <td th:text="${permit.getVehicleInfo().getManufacturer()}"/>
-      <td th:text="${permit.getVehicleInfo().getColor()}"/>
-      <td th:text="${permit.getVehicleInfo().getLicensePlate()}"/>
+      <td th:text="${permit.getVehicle().getYear()}"/>
+      <td th:text="${permit.getVehicle().getModel()}"/>
+      <td th:text="${permit.getVehicle().getManufacturer()}"/>
+      <td th:text="${permit.getVehicle().getColor()}"/>
+      <td th:text="${permit.getVehicle().getLicensePlate()}"/>
       <td th:text="${permit.getPhone()}"/>
     </tr>
     </tbody>

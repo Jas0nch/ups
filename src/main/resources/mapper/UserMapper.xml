@@ -21,6 +21,9 @@
     from upsuser
     where username=#{username}
   </select>
+  <select id="findById" resultType="com.csc540.ups.entity.User">
+    select * from upsdb.upsuser where id=#{id}
+  </select>
 
 
   <!--  <select id="login" resultType="com.csc540.ups.entity.User">-->

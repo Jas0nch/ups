@@ -20,6 +20,8 @@
   <h3>Admin Panel</h3>
   <a aria-pressed="true" class="btn btn-secondary btn-lg active" href="/lots" role="button">Lot/Zone/Space
     Operations</a>
+  <a aria-pressed="true" class="btn btn-secondary btn-lg active" href="/assignpermit" role="button">Assign
+    A Permit</a>
 </div>
 
 <!--permit-->
@@ -46,11 +48,11 @@
       <td th:text="${permit.getUnivid()}"/>
       <td th:text="${permit.getSpaceType()}"/>
       <td th:text="${permit.getCarNum()}"/>
-      <td th:text="${permit.getVehicleInfo().getYear()}"/>
-      <td th:text="${permit.getVehicleInfo().getModel()}"/>
-      <td th:text="${permit.getVehicleInfo().getManufacturer()}"/>
-      <td th:text="${permit.getVehicleInfo().getColor()}"/>
-      <td th:text="${permit.getVehicleInfo().getLicensePlate()}"/>
+      <td th:text="${permit.getVehicle().getYear()}"/>
+      <td th:text="${permit.getVehicle().getModel()}"/>
+      <td th:text="${permit.getVehicle().getManufacturer()}"/>
+      <td th:text="${permit.getVehicle().getColor()}"/>
+      <td th:text="${permit.getVehicle().getLicensePlate()}"/>
     </tr>
     </tbody>
   </table>

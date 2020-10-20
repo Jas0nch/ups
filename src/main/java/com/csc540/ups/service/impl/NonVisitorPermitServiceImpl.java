@@ -39,7 +39,7 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
 
     nvpermitDao.insert(nonVisitorPermit);
 
-    Vehicle vehicle = new Vehicle(carNum, color, licensePlate, manufacturer, model, year);
+    Vehicle vehicle = new Vehicle(carNum, manufacturer, model, year, color, licensePlate);
 
     vehicleDao.insert(
         vehicle.getCarNum(),
@@ -54,6 +54,18 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
 
   @Override
   public NonVisitorPermit getPermitByUUID(String univid) {
-    return nvpermitDao.selectByUnivID(univid);
+    NonVisitorPermit permit = nvpermitDao.selectByUnivID(univid);
+
+    if (permit != null) {
+      Vehicle vehicle = vehicleDao.select(permit.getCarNum());
+      permit.setVehicle(vehicle);
+
+      if (permit.getCarNum2() != null && !permit.getCarNum2().trim().isEmpty()) {
+        Vehicle vehicle2 = vehicleDao.select(permit.getCarNum2());
+        permit.setVehicle2(vehicle2);
+      }
+    }
+
+    return permit;
   }
 }

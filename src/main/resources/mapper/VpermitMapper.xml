@@ -4,21 +4,26 @@
 <mapper namespace="com.csc540.ups.dao.VpermitDao">
   <insert id="insert" keyColumn="uuid" keyProperty="uuid"
     parameterType="com.csc540.ups.entity.VisitorPermit" useGeneratedKeys="true">
-    insert into upsdb.vpermit (spaceNum, startTime, lotID,
+    insert into upsdb.vpermit (uuid, spaceNum, startTime, lotID,
                                duration, permitType, identifier,
                                spaceType, carNum, startDate, phone)
-    values (#{spacenum,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP},
-            #{lotid,jdbcType=VARCHAR},
-            #{duration,jdbcType=INTEGER}, #{permittype,jdbcType=OTHER},
+    values (#{uuid,jdbcType=VARCHAR}, #{spaceNum,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
+            #{lotID,jdbcType=VARCHAR},
+            #{duration,jdbcType=INTEGER},
+            #{permitType,javaType=com.csc540.ups.enums.PermitType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
             #{identifier,jdbcType=VARCHAR},
-            #{spacetype,jdbcType=OTHER}, #{carnum,jdbcType=VARCHAR},
-            #{startdate,jdbcType=TIMESTAMP},
+            #{spaceType,javaType=com.csc540.ups.enums.SpaceType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            #{carNum,jdbcType=VARCHAR},
+            #{startDate,jdbcType=TIMESTAMP},
             #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="uuid" keyProperty="uuid"
     parameterType="com.csc540.ups.entity.VisitorPermit" useGeneratedKeys="true">
     insert into upsdb.vpermit
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
       <if test="spaceNum != null">
         spaceNum,
       </if>
@@ -51,32 +56,35 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
       <if test="spaceNum != null">
-        #{spacenum,jdbcType=INTEGER},
+        #{spaceNum,jdbcType=INTEGER},
       </if>
       <if test="startTime != null">
-        #{starttime,jdbcType=TIMESTAMP},
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lotID != null">
-        #{lotid,jdbcType=VARCHAR},
+        #{lotID,jdbcType=VARCHAR},
       </if>
       <if test="duration != null">
         #{duration,jdbcType=INTEGER},
       </if>
       <if test="permitType != null">
-        #{permittype,jdbcType=OTHER},
+        #{permitType,javaType=com.csc540.ups.enums.PermitType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
       </if>
       <if test="identifier != null">
         #{identifier,jdbcType=VARCHAR},
       </if>
       <if test="spaceType != null">
-        #{spacetype,jdbcType=OTHER},
+        #{spaceType,javaType=com.csc540.ups.enums.SpaceType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
       </if>
       <if test="carNum != null">
-        #{carnum,jdbcType=VARCHAR},
+        #{carNum,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null">
-        #{startdate,jdbcType=TIMESTAMP},
+        #{startDate,jdbcType=TIMESTAMP},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -88,10 +96,10 @@
     <result column="startTime" jdbcType="TIMESTAMP" property="startTime"/>
     <result column="lotID" jdbcType="VARCHAR" property="lotID"/>
     <result column="duration" jdbcType="INTEGER" property="duration"/>
-    <result column="permitType" jdbcType="OTHER" property="permitType"/>
+    <result column="permitType" javaType="com.csc540.ups.enums.PermitType" property="permitType"/>
     <result column="identifier" jdbcType="VARCHAR" property="identifier"/>
     <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
-    <result column="spaceType" jdbcType="OTHER" property="spaceType"/>
+    <result column="spaceType" javaType="com.csc540.ups.enums.SpaceType" property="spaceType"/>
     <result column="carNum" jdbcType="VARCHAR" property="carNum"/>
     <result column="startDate" jdbcType="TIMESTAMP" property="startDate"/>
     <result column="phone" jdbcType="VARCHAR" property="phone"/>

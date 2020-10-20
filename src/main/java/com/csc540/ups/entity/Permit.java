@@ -1,13 +1,11 @@
 package com.csc540.ups.entity;
 
-import com.csc540.ups.dao.VehicleDao;
 import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 public class Permit implements Serializable {
@@ -19,8 +17,7 @@ public class Permit implements Serializable {
   private String carNum;
   private LocalDateTime startDate;
 
-  @Autowired
-  VehicleDao vehicleDao;
+  Vehicle vehicle;
 
   public Permit() {
   }
@@ -113,7 +110,11 @@ public class Permit implements Serializable {
     this.permitType = permitType;
   }
 
-  public Vehicle getVehicleInfo() {
-    return vehicleDao.select(carNum);
+  public Vehicle getVehicle() {
+    return vehicle;
+  }
+
+  public void setVehicle(Vehicle vehicle) {
+    this.vehicle = vehicle;
   }
 }

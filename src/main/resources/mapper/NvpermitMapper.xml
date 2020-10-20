@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csc540.ups.dao.NvpermitDao">
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete
     from upsdb.nvpermit
@@ -10,18 +11,24 @@
   <insert id="insert" keyColumn="uuid" keyProperty="uuid"
     parameterType="com.csc540.ups.entity.NonVisitorPermit"
     useGeneratedKeys="true">
-    insert into upsdb.nvpermit (univid, carNum2, permitType,
+    insert into upsdb.nvpermit (uuid, univid, carNum2, permitType,
                                 identifier, spaceType, carNum,
                                 startDate)
-    values (#{univid,jdbcType=VARCHAR}, #{carnum2,jdbcType=VARCHAR}, #{permittype,jdbcType=OTHER},
-            #{identifier,jdbcType=VARCHAR}, #{spacetype,jdbcType=OTHER}, #{carnum,jdbcType=VARCHAR},
-            #{startdate,jdbcType=TIMESTAMP})
+    values (#{uuid,jdbcType=VARCHAR}, #{univid,jdbcType=VARCHAR}, #{carNum2,jdbcType=VARCHAR},
+            #{permitType,javaType=com.csc540.ups.enums.PermitType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            #{identifier,jdbcType=VARCHAR},
+            #{spaceType,javaType=com.csc540.ups.enums.SpaceType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            #{carNum,jdbcType=VARCHAR},
+            #{startDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="uuid" keyProperty="uuid"
     parameterType="com.csc540.ups.entity.NonVisitorPermit"
     useGeneratedKeys="true">
     insert into upsdb.nvpermit
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
       <if test="univid != null">
         univid,
       </if>
@@ -45,26 +52,29 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
       <if test="univid != null">
         #{univid,jdbcType=VARCHAR},
       </if>
       <if test="carNum2 != null">
-        #{carnum2,jdbcType=VARCHAR},
+        #{carNum2,jdbcType=VARCHAR},
       </if>
       <if test="permitType != null">
-        #{permittype,jdbcType=OTHER},
+        #{permitType,javaType=com.csc540.ups.enums.PermitType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
       </if>
       <if test="identifier != null">
         #{identifier,jdbcType=VARCHAR},
       </if>
       <if test="spaceType != null">
-        #{spacetype,jdbcType=OTHER},
+        #{spaceType,javaType=com.csc540.ups.enums.SpaceType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
       </if>
       <if test="carNum != null">
-        #{carnum,jdbcType=VARCHAR},
+        #{carNum,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null">
-        #{startdate,jdbcType=TIMESTAMP},
+        #{startDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -100,22 +110,24 @@
         univid = #{univid,jdbcType=VARCHAR},
       </if>
       <if test="carNum2 != null">
-        carNum2 = #{carnum2,jdbcType=VARCHAR},
+        carNum2 = #{carNum2,jdbcType=VARCHAR},
       </if>
       <if test="permitType != null">
-        permitType = #{permittype,jdbcType=OTHER},
+        permitType =
+        #{permitType,javaType=com.csc540.ups.enums.PermitType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
       </if>
       <if test="identifier != null">
         identifier = #{identifier,jdbcType=VARCHAR},
       </if>
       <if test="spaceType != null">
-        spaceType = #{spacetype,jdbcType=OTHER},
+        spaceType =
+        #{spaceType,javaType=com.csc540.ups.enums.SpaceType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
       </if>
       <if test="carNum != null">
-        carNum = #{carnum,jdbcType=VARCHAR},
+        carNum = #{carNum,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null">
-        startDate = #{startdate,jdbcType=TIMESTAMP},
+        startDate = #{startDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where uuid = #{uuid,jdbcType=VARCHAR}
@@ -123,12 +135,12 @@
   <update id="updateByPrimaryKey" parameterType="com.csc540.ups.entity.NonVisitorPermit">
     update upsdb.nvpermit
     set univid     = #{univid,jdbcType=VARCHAR},
-        carNum2    = #{carnum2,jdbcType=VARCHAR},
-        permitType = #{permittype,jdbcType=OTHER},
+        carNum2    = #{carNum2,jdbcType=VARCHAR},
+        permitType = #{permitType,javaType=com.csc540.ups.enums.PermitType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
         identifier = #{identifier,jdbcType=VARCHAR},
-        spaceType  = #{spacetype,jdbcType=OTHER},
-        carNum     = #{carnum,jdbcType=VARCHAR},
-        startDate  = #{startdate,jdbcType=TIMESTAMP}
+        spaceType  = #{spaceType,javaType=com.csc540.ups.enums.SpaceType,typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+        carNum     = #{carNum,jdbcType=VARCHAR},
+        startDate  = #{startDate,jdbcType=TIMESTAMP}
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
 </mapper>

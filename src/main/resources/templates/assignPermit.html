@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+  <link crossorigin="anonymous"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        rel="stylesheet">
+
+  <!--  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>-->
+  <!--  <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
+  <title>Assign A Permit</title>
+</head>
+<body>
+<div>
+  <h3>Assign A Permit</h3>
+  <form class="form-horizontal" method="get" style="margin: 30px"
+        th:action="@{/assignpermitform}">
+    <div class="form-group">
+      <label for="identifier2">Permit ID:</label>
+      <input class="form-control" id="identifier2" name="identifier" placeholder="Enter Permit ID"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="univid">Univ ID:</label>
+      <input class="form-control" id="univid" name="univid" placeholder="Enter Univ ID"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="spaceType">Space Type:</label>
+      <select class="form-control form-control-lg" id="spaceType" name="spaceType">
+        <option>regular</option>
+        <option>electric</option>
+        <option>handicap</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="carNum">Car Number:</label>
+      <input class="form-control" id="carNum" name="carNum" placeholder="Enter Car Number"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="year">Year:</label>
+      <input class="form-control" id="year" name="year" placeholder="Enter Year"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="model">Model:</label>
+      <input class="form-control" id="model" name="model" placeholder="Enter Model"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="manufacturer">Manufacturer:</label>
+      <input class="form-control" id="manufacturer" name="manufacturer"
+             placeholder="Enter Manufacturer"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="color">Color:</label>
+      <input class="form-control" id="color" name="color" placeholder="Enter Color"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="licensePlate">License Plate:</label>
+      <input class="form-control" id="licensePlate" name="licensePlate"
+             placeholder="Enter License Plate"
+             type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Assign</button>
+  </form>
+</div>
+</body>
+</html>

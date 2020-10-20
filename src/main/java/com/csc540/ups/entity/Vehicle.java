@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vehicle implements Serializable {
-
   private String carNum;
   private String manufacturer;
   private String model;

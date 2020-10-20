@@ -29,4 +29,9 @@ public class UPSDetailsService implements UserDetailsService, UserService {
 //    }
     return user;
   }
+
+  @Override
+  public User findByID(String id) {
+    return userDao.findById(id);
+  }
 }

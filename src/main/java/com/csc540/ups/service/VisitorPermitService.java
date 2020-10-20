@@ -19,4 +19,6 @@ public interface VisitorPermitService {
       String phone);
 
   VisitorPermit search(String identifier);
+
+  String getLotName(String identifier);
 }
