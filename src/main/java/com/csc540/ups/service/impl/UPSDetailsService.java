@@ -17,12 +17,16 @@ public class UPSDetailsService implements UserDetailsService, UserService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User u = login(username);
-    return new org.springframework.security.core.userdetails.User(u.getUsername(), u.getPassword(), u.getAuthorities());
+//    User u = login(username);
+    return login(username);
   }
 
   @Override
   public User login(String username) {
-    return userDao.login(username);
+    User user = userDao.login(username);
+//    if (user == null){
+//      user = new User(UUID.randomUUID().toString(), username, "visitor", "visitor");
+//    }
+    return user;
   }
 }

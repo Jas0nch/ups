@@ -95,4 +95,9 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
 
     return null;
   }
+
+  @Override
+  public VisitorPermit search(String identifier) {
+    return vpermitDao.select(identifier);
+  }
 }

@@ -3,17 +3,18 @@ package com.csc540.ups.entity;
 import com.csc540.ups.service.RoleToAuthorityService;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails, Serializable {
-  private int id;
+
+  private String id;
   private String username;
   private String password;
   private String role;
@@ -22,6 +23,13 @@ public class User implements UserDetails, Serializable {
   private boolean isCredentialsNonExpired = true;
   private boolean isAccountNonLocked = true;
 
+  public User(String id, String username, String password, String role) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.role = role;
+  }
+
   private RoleToAuthorityService roleToAuthorityService;
 //  private RoleToAuthorityService roleToAuthorityService = new RoleToAuthorityService();
 
@@ -29,7 +37,7 @@ public class User implements UserDetails, Serializable {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return roleToAuthorityService.getAuthorityByRole(role);
+    return RoleToAuthorityService.getAuthorityByRole(role);
   }
 
 
@@ -41,11 +49,11 @@ public class User implements UserDetails, Serializable {
     this.role = role;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 

@@ -16,4 +16,6 @@ public interface VisitorPermitService {
       String manufacturer,
       String color,
       String licensePlate);
+
+  VisitorPermit search(String identifier);
 }

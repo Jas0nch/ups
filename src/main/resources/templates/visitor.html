@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+  <title>UPS</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form method="get" th:action="@{/searchVisitorPermit}">
+  <div><label> Permit ID : <input name="identifier" type="text"/> </label></div>
+  <!--  <div><label> Password: <input type="password" name="password"/> </label></div>-->
+  <div><input type="submit" value="Search"/></div>
+</form>
+
+<div th:if="${permit}==null">
+  <form action="/requestVisitorPermit" class="form-horizontal" method="get"
+        style="margin-top: 30px">
+    <div><label> Permit ID : <input name="identifier" type="text"/> </label></div>
+    <div><input type="submit" value="Request"/></div>
+    <!--    <input type="hidden" name="_method" value="put">-->
+    <!--    &lt;!&ndash; lot name &ndash;&gt;-->
+    <!--    <div class="form-group">-->
+    <!--      <label for="lotName3" class="col-sm-4 control-label">Lot Name</label>-->
+    <!--      <div class="col-sm-7">-->
+    <!--        <input type="text" class="form-control" id="lotName3" placeholder="Lot Name" name="lotName"-->
+    <!--               required="required">-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    &lt;!&ndash; space id &ndash;&gt;-->
+    <!--    <div class="form-group col-sm-offset-2">-->
+    <!--      <label for="spaceId" class="col-sm-4 control-label">Space ID</label>-->
+    <!--      <div class="col-sm-7">-->
+    <!--        <input type="text" class="form-control" id="spaceId" placeholder="Space ID" name="spaceId"-->
+    <!--               required="required">-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    &lt;!&ndash; type &ndash;&gt;-->
+    <!--    <div class="form-group col-sm-offset-2">-->
+    <!--      <label class="col-sm-4 control-label" for="selectZones1">Select Type</label>-->
+    <!--      <div class="col-sm-7">-->
+    <!--        <select id="selectType" name="type">-->
+    <!--          <option value="Regular">Regular</option>-->
+    <!--          <option value="Handicapped">Handicapped</option>-->
+    <!--          <option value="Electric">Electric</option>-->
+    <!--        </select>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <!--    <div class="form-group">-->
+    <!--      <div class="col-sm-offset-4 col-sm-8">-->
+    <!--        <button type="submit" class="btn btn-primary">Submit</button>-->
+    <!--      </div>-->
+    <!--    </div>-->
+  </form>
+</div>
+
+<div th:if="${permit}!=null">
+  ${permit}
+</div>
+
+
+</body>
+</html>

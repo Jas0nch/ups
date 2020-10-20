@@ -3,10 +3,10 @@ use upsdb;
 
 create table upsuser
 (
-    id       int primary key not null auto_increment,
-    username varchar(36)     null,
-    password varchar(36)     null,
-    role     varchar(36)     null
+    id       varchar(36) primary key,
+    username varchar(36) not null,
+    password varchar(36) not null,
+    role     varchar(36) not null
 );
 
 

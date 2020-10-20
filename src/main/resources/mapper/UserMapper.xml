@@ -4,14 +4,15 @@
 
 <mapper namespace="com.csc540.ups.dao.UserDao">
 
+  <insert id="insert" parameterType="com.csc540.ups.entity.User" useGeneratedKeys="true">
+    insert into upsdb.upsuser (id, username, password, role)
+    values (#{id}, #{username}, #{password} , #{role})
+  </insert>
+
   <resultMap id="userResult" type="com.csc540.ups.entity.User">
-
-    <id property="id" column="id" jdbcType="INTEGER"></id>
-
+    <id column="id" jdbcType="VARCHAR" property="id"></id>
     <result property="username" column="username" jdbcType="VARCHAR"></result>
-
     <result property="password" column="password" jdbcType="VARCHAR"></result>
-
     <result property="role" column="role" jdbcType="VARCHAR"></result>
   </resultMap>
 
@@ -21,10 +22,11 @@
     where username=#{username}
   </select>
 
-<!--  <select id="login" resultType="com.csc540.ups.entity.User">-->
-<!--    select id, username, passwor, role-->
-<!--    from upsuser-->
-<!--    where username=#{username}-->
-<!--  </select>-->
+
+  <!--  <select id="login" resultType="com.csc540.ups.entity.User">-->
+  <!--    select id, username, passwor, role-->
+  <!--    from upsuser-->
+  <!--    where username=#{username}-->
+  <!--  </select>-->
 
 </mapper>
