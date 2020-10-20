@@ -62,3 +62,17 @@ create table vpermit
     carNum     varchar(36),
     startDate  DATETIME
 );
+
+create table nvpermit
+(
+    univid     varchar(36),
+    carNum2    varchar(36),
+    permitType enum ('Visitor',
+        'Student',
+        'Employee'),
+    identifier varchar(36) unique,
+    uuid       varchar(36) primary key,
+    spaceType  enum ('regular','electric','handicap'),
+    carNum     varchar(36),
+    startDate  DATETIME
+);

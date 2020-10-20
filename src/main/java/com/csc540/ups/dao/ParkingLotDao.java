@@ -17,6 +17,4 @@ public interface ParkingLotDao {
       @Param("address") String address,
       @Param("startNum") int startNum,
       @Param("spaceNum") int spaceNum);
-
-
 }

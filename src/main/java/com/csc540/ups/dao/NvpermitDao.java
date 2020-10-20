@@ -1,0 +1,20 @@
+package com.csc540.ups.dao;
+
+import com.csc540.ups.entity.NonVisitorPermit;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface NvpermitDao {
+
+  int deleteByPrimaryKey(String uuid);
+
+  int insert(NonVisitorPermit record);
+
+  int insertSelective(NonVisitorPermit record);
+
+  NonVisitorPermit selectByPrimaryKey(String uuid);
+
+  int updateByPrimaryKeySelective(NonVisitorPermit record);
+
+  int updateByPrimaryKey(NonVisitorPermit record);
+}

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csc540.ups.dao.NvpermitDao">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete
+    from upsdb.nvpermit
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="uuid" keyProperty="uuid"
+    parameterType="com.csc540.ups.entity.NonVisitorPermit"
+    useGeneratedKeys="true">
+    insert into upsdb.nvpermit (univid, carNum2, permitType,
+                                identifier, spaceType, carNum,
+                                startDate)
+    values (#{univid,jdbcType=VARCHAR}, #{carnum2,jdbcType=VARCHAR}, #{permittype,jdbcType=OTHER},
+            #{identifier,jdbcType=VARCHAR}, #{spacetype,jdbcType=OTHER}, #{carnum,jdbcType=VARCHAR},
+            #{startdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="uuid" keyProperty="uuid"
+    parameterType="com.csc540.ups.entity.NonVisitorPermit"
+    useGeneratedKeys="true">
+    insert into upsdb.nvpermit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="univid != null">
+        univid,
+      </if>
+      <if test="carNum2 != null">
+        carNum2,
+      </if>
+      <if test="permitType != null">
+        permitType,
+      </if>
+      <if test="identifier != null">
+        identifier,
+      </if>
+      <if test="spaceType != null">
+        spaceType,
+      </if>
+      <if test="carNum != null">
+        carNum,
+      </if>
+      <if test="startDate != null">
+        startDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="univid != null">
+        #{univid,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum2 != null">
+        #{carnum2,jdbcType=VARCHAR},
+      </if>
+      <if test="permitType != null">
+        #{permittype,jdbcType=OTHER},
+      </if>
+      <if test="identifier != null">
+        #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceType != null">
+        #{spacetype,jdbcType=OTHER},
+      </if>
+      <if test="carNum != null">
+        #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.csc540.ups.entity.NonVisitorPermit">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
+    <result column="univid" jdbcType="VARCHAR" property="univid"/>
+    <result column="carNum2" jdbcType="VARCHAR" property="carNum2"/>
+    <result column="permitType" jdbcType="OTHER" property="permitType"/>
+    <result column="identifier" jdbcType="VARCHAR" property="identifier"/>
+    <result column="spaceType" jdbcType="OTHER" property="spaceType"/>
+    <result column="carNum" jdbcType="VARCHAR" property="carNum"/>
+    <result column="startDate" jdbcType="TIMESTAMP" property="startDate"/>
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from upsdb.nvpermit
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <sql id="Base_Column_List">
+    uuid, univid, carNum2, permitType, identifier, spaceType, carNum, startDate
+  </sql>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csc540.ups.entity.NonVisitorPermit">
+    update upsdb.nvpermit
+    <set>
+      <if test="univid != null">
+        univid = #{univid,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum2 != null">
+        carNum2 = #{carnum2,jdbcType=VARCHAR},
+      </if>
+      <if test="permitType != null">
+        permitType = #{permittype,jdbcType=OTHER},
+      </if>
+      <if test="identifier != null">
+        identifier = #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceType != null">
+        spaceType = #{spacetype,jdbcType=OTHER},
+      </if>
+      <if test="carNum != null">
+        carNum = #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        startDate = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csc540.ups.entity.NonVisitorPermit">
+    update upsdb.nvpermit
+    set univid     = #{univid,jdbcType=VARCHAR},
+        carNum2    = #{carnum2,jdbcType=VARCHAR},
+        permitType = #{permittype,jdbcType=OTHER},
+        identifier = #{identifier,jdbcType=VARCHAR},
+        spaceType  = #{spacetype,jdbcType=OTHER},
+        carNum     = #{carnum,jdbcType=VARCHAR},
+        startDate  = #{startdate,jdbcType=TIMESTAMP}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

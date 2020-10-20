@@ -1,5 +1,6 @@
 package com.csc540.ups.service.impl;
 
+import com.csc540.ups.dao.VehicleDao;
 import com.csc540.ups.dao.VpermitDao;
 import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.Space;
@@ -27,6 +28,9 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
 
   @Resource
   VpermitDao vpermitDao;
+
+  @Resource
+  VehicleDao vehicleDao;
 
   @Override
   public VisitorPermit getPermit(
@@ -76,13 +80,17 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
 
       vpermitDao.insert(visitorPermit);
 
-      Vehicle vehicle = new Vehicle();
-      vehicle.setCarNum(carNum);
-      vehicle.setColor(color);
-      vehicle.setLicensePlate(licensePlate);
-      vehicle.setManufacturer(manufacturer);
-      vehicle.setModel(model);
-      vehicle.setYear(year);
+      Vehicle vehicle = new Vehicle(carNum, color, licensePlate, manufacturer, model, year);
+
+      vehicleDao.insert(
+          vehicle.getCarNum(),
+          vehicle.getManufacturer(),
+          vehicle.getModel(),
+          vehicle.getYear(),
+          vehicle.getColor(),
+          vehicle.getLicensePlate());
+
+      return visitorPermit;
     }
 
     return null;
