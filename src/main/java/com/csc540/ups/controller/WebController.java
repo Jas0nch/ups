@@ -3,6 +3,7 @@ package com.csc540.ups.controller;
 import com.csc540.ups.entity.NonVisitorPermit;
 import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.User;
+import com.csc540.ups.entity.Vehicle;
 import com.csc540.ups.entity.VisitorPermit;
 import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
@@ -245,5 +246,40 @@ public class WebController implements WebMvcConfigurer {
       m.addAttribute("time", fromDateTime.until(toDateTime, ChronoUnit.HOURS));
       return "overage";
     }
+  }
+
+  @GetMapping("/changevehicle/{i}/{identifier}")
+  public String changeVehicle(
+      @PathVariable("i") int i, @PathVariable("identifier") int identifier, Model m) {
+    m.addAttribute("i", i);
+    m.addAttribute("identifier", identifier);
+
+    return "change";
+  }
+
+  @GetMapping("/changeform/{i}/{identifier}")
+  public String changeForm(
+      @PathVariable("i") int i,
+      @PathVariable("identifier") String identifier,
+      @RequestParam("carNum") String carNum,
+      @RequestParam("year") String year,
+      @RequestParam("model") String model,
+      @RequestParam("manufacturer") String manufacturer,
+      @RequestParam("color") String color,
+      @RequestParam("licensePlate") String licensePlate) {
+    Vehicle vehicle = new Vehicle();
+    vehicle.setYear(year);
+    vehicle.setModel(model);
+    vehicle.setManufacturer(manufacturer);
+    vehicle.setLicensePlate(licensePlate);
+    vehicle.setColor(color);
+    vehicle.setCarNum(carNum);
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.login(authentication.getName());
+
+    nonVisitorPermitService.ChangeVehicle(identifier, user.getId(), vehicle, i);
+
+    return "redirect:/hello";
   }
 }

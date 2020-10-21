@@ -40,6 +40,27 @@
       <th scope="col">Manufacturer</th>
       <th scope="col">Color</th>
       <th scope="col">License Plate</th>
+
+      <th scope="col" sec:authorize="hasAuthority('employee')"
+          th:if="${permit.getVehicle2()!=null}">Car Number 2
+      </th>
+      <th scope="col" sec:authorize="hasAuthority('employee')"
+          th:if="${permit.getVehicle2()!=null}">Year 2
+      </th>
+      <th scope="col" sec:authorize="hasAuthority('employee')"
+          th:if="${permit.getVehicle2()!=null}">Car Model 2
+      </th>
+      <th scope="col" sec:authorize="hasAuthority('employee')"
+          th:if="${permit.getVehicle2()!=null}">Manufacturer 2
+      </th>
+      <th scope="col" sec:authorize="hasAuthority('employee')"
+          th:if="${permit.getVehicle2()!=null}">Color 2
+      </th>
+      <th scope="col" sec:authorize="hasAuthority('employee')"
+          th:if="${permit.getVehicle2()!=null}">License Plate 2
+      </th>
+
+
     </tr>
     </thead>
     <tbody>
@@ -53,9 +74,29 @@
       <td th:text="${permit.getVehicle().getManufacturer()}"/>
       <td th:text="${permit.getVehicle().getColor()}"/>
       <td th:text="${permit.getVehicle().getLicensePlate()}"/>
+
+      <td sec:authorize="hasAuthority('employee')" th:if="${permit.getVehicle2()!=null}"
+          th:text="${permit.getCarNum2()}"/>
+      <td sec:authorize="hasAuthority('employee')" th:if="${permit.getVehicle2()!=null}"
+          th:text="${permit.getVehicle2().getYear()}"/>
+      <td sec:authorize="hasAuthority('employee')" th:if="${permit.getVehicle2()!=null}"
+          th:text="${permit.getVehicle2().getModel()}"/>
+      <td sec:authorize="hasAuthority('employee')" th:if="${permit.getVehicle2()!=null}"
+          th:text="${permit.getVehicle2().getManufacturer()}"/>
+      <td sec:authorize="hasAuthority('employee')" th:if="${permit.getVehicle2()!=null}"
+          th:text="${permit.getVehicle2().getColor()}"/>
+      <td sec:authorize="hasAuthority('employee')" th:if="${permit.getVehicle2()!=null}"
+          th:text="${permit.getVehicle2().getLicensePlate()}"/>
     </tr>
     </tbody>
   </table>
+</div>
+
+<div sec:authorize="hasAuthority('employee')">
+  <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
+     th:href="@{'/changevehicle/1/' + ${permit.getIdentifier()} }">Change Vehicle 1</a>
+  <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
+     th:href="@{'/changevehicle/2/' + ${permit.getIdentifier()} }">Change Vehicle 2</a>
 </div>
 
 <!--citation -->

@@ -37,8 +37,14 @@ public class RoleToAuthorityService {
     };
 
     admin.add(adminAu);
+    admin.add(employeeAu);
+    admin.add(studentAu);
+
     student.add(studentAu);
+
     employee.add(employeeAu);
+
+    employee.add(studentAu);
 
     roleToAuthority.put("admin", admin);
     roleToAuthority.put("student", student);

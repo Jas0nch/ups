@@ -134,6 +134,6 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
       }
     }
 
-    return false;
+    return true;
   }
 }

@@ -138,6 +138,7 @@
   </table>
 
   <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
+     th:if="${permit.getSpaceNum() != -1}"
      th:href="@{'/exitlot/' + ${permit.getIdentifier()}}">Exit Lot</a>
 </div>
 

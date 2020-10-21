@@ -68,4 +68,29 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
 
     return permit;
   }
+
+  public void ChangeVehicle(String identifier, String univid, Vehicle vehicle, int i) {
+    NonVisitorPermit permit = nvpermitDao.selectByUnivID(univid);
+    if (!permit.getIdentifier().equals(identifier)) {
+      return;
+    }
+
+    vehicleDao.insert(
+        vehicle.getCarNum(),
+        vehicle.getManufacturer(),
+        vehicle.getModel(),
+        vehicle.getYear(),
+        vehicle.getColor(),
+        vehicle.getLicensePlate());
+
+    if (i == 1) {
+      permit.setCarNum(vehicle.getCarNum());
+    } else if (i == 2) {
+      permit.setCarNum2(vehicle.getCarNum());
+    } else {
+      return;
+    }
+
+    nvpermitDao.updateByPrimaryKey(permit);
+  }
 }

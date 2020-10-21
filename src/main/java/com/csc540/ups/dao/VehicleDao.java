@@ -18,4 +18,11 @@ public interface VehicleDao {
       @Param("licensePlate") String licensePlate);
 
   Vehicle select(@Param("carNum") String carNum);
+
+  void update(@Param("carNum") String carNum,
+      @Param("manufacturer") String manufacturer,
+      @Param("model") String model,
+      @Param("year") String year,
+      @Param("color") String color,
+      @Param("licensePlate") String licensePlate);
 }

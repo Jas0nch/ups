@@ -8,6 +8,15 @@
     insert into upsdb.vehicle (carNum, manufacturer, model, year, color, licensePlate)
     values (#{carNum}, #{manufacturer}, #{model}, #{year}, #{color}, #{licensePlate})
   </insert>
+  <update id="update">
+    update upsdb.vehicle
+    set carNum=#{carNum},
+        manufacturer=#{manufacturer},
+        model=#{model},
+        year=#{year},
+        color=#{color}
+    where licensePlate = #{licensePlate}
+  </update>
 
   <select id="select" resultType="com.csc540.ups.entity.Vehicle">
     select *
