@@ -3,6 +3,7 @@ package com.csc540.ups.controller;
 import com.csc540.ups.entity.Citation;
 import com.csc540.ups.entity.NonVisitorPermit;
 import com.csc540.ups.entity.ParkingLot;
+import com.csc540.ups.entity.Space;
 import com.csc540.ups.entity.User;
 import com.csc540.ups.entity.Vehicle;
 import com.csc540.ups.entity.VisitorPermit;
@@ -19,6 +20,7 @@ import com.csc540.ups.service.VisitorPermitService;
 import com.csc540.ups.service.ZoneService;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -205,7 +207,9 @@ public class WebController implements WebMvcConfigurer {
   public String spaces(Model m, @PathVariable("lotID") String lotID) {
     ParkingLot lot = lotService.select(lotID);
 
-    m.addAttribute("list", lot.getSpaces());
+    List<Space> list = lot.getSpaces();
+    Collections.sort(list, (s1, s2) -> s1.getSpaceNum() - s2.getSpaceNum());
+    m.addAttribute("list", list);
     m.addAttribute("lotID", lotID);
     m.addAttribute("spaceType", "");
 

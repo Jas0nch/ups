@@ -15,13 +15,13 @@
 
     <result column="spaceNum" jdbcType="INTEGER" property="spaceNum"></result>
 
-    <result column="type" javaType="com.csc540.ups.enums.SpaceType" property="spaceType"
-      typeHandler="org.apache.ibatis.type.EnumTypeHandler"></result>
+    <result column="type" jdbcType="VARCHAR"
+      property="spaceType"></result>
 
     <result column="zoneid" jdbcType="VARCHAR" property="zoneID"></result>
 
-    <result column="status" javaType="com.csc540.ups.enums.SpaceStatus"
-      property="spaceStatus"></result>
+    <result column="status"
+      jdbcType="VARCHAR" property="spaceStatus"></result>
   </resultMap>
 
 
@@ -32,7 +32,7 @@
   </select>
 
   <select id="selectAllByZoneID" resultMap="spaceResult">
-    <!--  <select id="selectAllByZoneID" resultType="com.csc540.ups.entity.Space">-->
+    <!--      <select id="selectAllByZoneID" resultType="com.csc540.ups.entity.Space">-->
     select *
     from upsdb.space
     where zoneid = #{zoneID}

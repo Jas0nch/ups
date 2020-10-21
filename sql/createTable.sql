@@ -97,3 +97,10 @@ create table notification
     contactinfo varchar(36),
     citationid  varchar(36)
 );
+
+CREATE PROCEDURE pay(IN s enum ('paid', 'unpaid'), IN i varchar(36))
+BEGIN
+    update upsdb.citation
+    set status=s
+    where id = i;
+END

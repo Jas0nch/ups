@@ -80,18 +80,18 @@
     <result column="date" jdbcType="TIMESTAMP" property="date"/>
     <result column="lotID" jdbcType="VARCHAR" property="lotID"/>
     <result column="time" jdbcType="TIMESTAMP" property="time"/>
-    <result column="type" javaType="com.csc540.ups.enums.CitationType" property="type"/>
-    <result column="status" javaType="com.csc540.ups.enums.CitationStatus" property="status"/>
+    <result column="type" jdbcType="VARCHAR" property="type"/>
+    <result column="status" jdbcType="VARCHAR" property="status"/>
   </resultMap>
-  <select id="selectByCarNum" resultType="com.csc540.ups.entity.Citation">
+  <select id="selectByCarNum" resultMap="BaseResultMap">
     select *
     from upsdb.citation
     where carNum = #{carNum}
       and status = #{status}
   </select>
-  <update id="updateStatusByID">
+  <select id="updateStatusByID">
     update upsdb.citation
     set status=#{status}
     where id = #{id}
-  </update>
+  </select>
 </mapper>
