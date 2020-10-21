@@ -74,3 +74,17 @@ INSERT INTO upsdb.nvpermit(uuid, permitType, carNum, identifier, startdate, spac
 VALUES ('20AS016S', '3', 'NEV9889', '20AS016S', '2020-09-01 00:00:00', '1', '100615');
 INSERT INTO upsdb.nvpermit(uuid, permitType, carNum, identifier, startdate, spaceType, univid) 
 VALUES ('20A0052A', '3', 'KTP2003', '20A0052A', '2020-07-29 00:00:00', '1', '1006022');
+
+UPDATE upsdb.vpermit
+SET lotID = '2' WHERE uuid='20V0001A';
+UPDATE upsdb.vpermit
+SET lotID = '3' WHERE uuid='20V0012B';
+UPDATE upsdb.vpermit
+SET lotID = '3' WHERE uuid='20V0015J';
+UPDATE upsdb.vpermit
+SET lotID = '3' WHERE uuid='20V0021L';
+UPDATE upsdb.vpermit
+SET lotID = '3' WHERE uuid='20V0026P';
+UPDATE upsdb.vpermit
+SET lotID = '2' WHERE uuid='20V0025B';
+
