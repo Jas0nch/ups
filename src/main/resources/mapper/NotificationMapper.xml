@@ -4,13 +4,16 @@
 <mapper namespace="com.csc540.ups.dao.NotificationDao">
   <insert id="insert" keyColumn="id" keyProperty="id"
     parameterType="com.csc540.ups.entity.Notification" useGeneratedKeys="true">
-    insert into upsdb.notification (contactInfo, citationID)
-    values (#{contactInfo,jdbcType=VARCHAR}, #{citationID,jdbcType=VARCHAR})
+    insert into upsdb.notification (id, contactInfo, citationID)
+    values (#{id,jdbcType=VARCHAR}, #{contactInfo,jdbcType=VARCHAR}, #{citationID,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id"
     parameterType="com.csc540.ups.entity.Notification" useGeneratedKeys="true">
     insert into upsdb.notification
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="contactInfo != null">
         contactInfo,
       </if>
@@ -19,6 +22,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="contactInfo != null">
         #{contactInfo,jdbcType=VARCHAR},
       </if>
