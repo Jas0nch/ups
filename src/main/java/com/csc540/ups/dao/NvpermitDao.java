@@ -21,4 +21,6 @@ public interface NvpermitDao {
   int updateByPrimaryKeySelective(NonVisitorPermit record);
 
   int updateByPrimaryKey(NonVisitorPermit record);
+
+  NonVisitorPermit selectByCarNum(String carNum);
 }

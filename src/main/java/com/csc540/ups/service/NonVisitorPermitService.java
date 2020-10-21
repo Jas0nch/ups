@@ -22,4 +22,6 @@ public interface NonVisitorPermitService {
   NonVisitorPermit getPermitByUUID(String univid);
 
   void ChangeVehicle(String identifier, String univid, Vehicle vehicle, int i);
+
+  NonVisitorPermit findPermitByCarNum(String carNum);
 }

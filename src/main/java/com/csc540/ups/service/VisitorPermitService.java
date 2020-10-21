@@ -23,4 +23,6 @@ public interface VisitorPermitService {
   String getLotName(String identifier);
 
   boolean ExitLot(VisitorPermit permit);
+
+  VisitorPermit selectByCarNum(String carNum);
 }

@@ -100,6 +100,12 @@
     from upsdb.nvpermit
     where univid = #{univid,jdbcType=VARCHAR}
   </select>
+  <select id="selectByCarNum" resultType="com.csc540.ups.entity.NonVisitorPermit">
+    select
+    <include refid="Base_Column_List"/>
+    from upsdb.nvpermit
+    where carNum = #{carNum,jdbcType=VARCHAR} or carNum2 = #{carNum,jdbcType=VARCHAR}
+  </select>
   <sql id="Base_Column_List">
     uuid, univid, carNum2, permitType, identifier, spaceType, carNum, startDate
   </sql>

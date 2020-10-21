@@ -136,4 +136,9 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
 
     return true;
   }
+
+  @Override
+  public VisitorPermit selectByCarNum(String carNum) {
+    return vpermitDao.selectByCarNum(carNum);
+  }
 }

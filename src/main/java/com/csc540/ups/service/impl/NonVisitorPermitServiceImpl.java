@@ -93,4 +93,9 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
 
     nvpermitDao.updateByPrimaryKey(permit);
   }
+
+  @Override
+  public NonVisitorPermit findPermitByCarNum(String carNum) {
+    return nvpermitDao.selectByCarNum(carNum);
+  }
 }

@@ -1,12 +1,16 @@
 package com.csc540.ups.controller;
 
+import com.csc540.ups.entity.Citation;
 import com.csc540.ups.entity.NonVisitorPermit;
 import com.csc540.ups.entity.ParkingLot;
 import com.csc540.ups.entity.User;
 import com.csc540.ups.entity.Vehicle;
 import com.csc540.ups.entity.VisitorPermit;
+import com.csc540.ups.enums.CitationStatus;
+import com.csc540.ups.enums.CitationType;
 import com.csc540.ups.enums.PermitType;
 import com.csc540.ups.enums.SpaceType;
+import com.csc540.ups.service.CitationService;
 import com.csc540.ups.service.LotService;
 import com.csc540.ups.service.NonVisitorPermitService;
 import com.csc540.ups.service.SpaceService;
@@ -117,16 +121,8 @@ public class WebController implements WebMvcConfigurer {
     return "visitor";
   }
 
-  @GetMapping("/hello")
-  public String hello(Model m) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    User user = userService.login(authentication.getName());
-
-    NonVisitorPermit permit = nonVisitorPermitService.getPermitByUUID(user.getId());
-    m.addAttribute("permit", permit);
-
-    return "hello";
-  }
+  @Autowired
+  CitationService citationService;
 
   @GetMapping("/assignpermit")
   public String assignPermit() {
@@ -280,6 +276,51 @@ public class WebController implements WebMvcConfigurer {
 
     nonVisitorPermitService.ChangeVehicle(identifier, user.getId(), vehicle, i);
 
+    return "redirect:/hello";
+  }
+
+  @GetMapping("/hello")
+  public String hello(Model m) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.login(authentication.getName());
+
+    NonVisitorPermit permit = nonVisitorPermitService.getPermitByUUID(user.getId());
+
+    if (permit != null) {
+      List<Citation> citations = citationService.selectUnpaidByCarNum(permit.getCarNum());
+      if (permit.getCarNum2() != null) {
+        citations.addAll(citationService.selectUnpaidByCarNum(permit.getCarNum2()));
+      }
+
+      m.addAttribute("ci", citations);
+    }
+
+    m.addAttribute("permit", permit);
+
+    return "hello";
+  }
+
+  @GetMapping("/issue")
+  public String issue() {
+    return "issue";
+  }
+
+  @GetMapping("/issueform")
+  public String issueForm(
+      @RequestParam("carNum") String carNum,
+      @RequestParam("lotName") String lotName,
+      @RequestParam("citationType") CitationType citationType
+  ) {
+    citationService.issue(carNum, lotName, citationType, CitationStatus.unpaid);
+
+    return "redirect:/hello";
+  }
+
+  @GetMapping("/pay/{id}")
+  public String pay(
+      @PathVariable("id") String id
+  ) {
+    citationService.pay(id);
     return "redirect:/hello";
   }
 }

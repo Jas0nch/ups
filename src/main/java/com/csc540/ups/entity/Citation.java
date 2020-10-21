@@ -1,5 +1,6 @@
 package com.csc540.ups.entity;
 
+import com.csc540.ups.enums.CitationStatus;
 import com.csc540.ups.enums.CitationType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Citation implements Serializable {
 
   // citation number
-  private String uuid;
+  private String id;
   private String carNum;
   private String model;
   private String color;
@@ -21,7 +22,7 @@ public class Citation implements Serializable {
   private String lotID;
   private LocalDateTime time;
   private CitationType type;
-  private String status;
+  private CitationStatus status;
 
   public int getFee() {
     if (type == CitationType.ExpiredPermit) {
@@ -32,5 +33,9 @@ public class Citation implements Serializable {
       return 40;
     }
     return 0;
+  }
+
+  public LocalDateTime getPaymentDue() {
+    return getTime().plusDays(30);
   }
 }

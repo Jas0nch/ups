@@ -45,7 +45,6 @@ create table vehicle
     year         varchar(36),
     color        varchar(36),
     licensePlate varchar(36) unique
-
 );
 
 create table vpermit
@@ -77,4 +76,24 @@ create table nvpermit
     spaceType  enum ('regular','electric','handicap'),
     carNum     varchar(36),
     startDate  DATETIME
+);
+
+create table citation
+(
+    id     varchar(36),
+    carNum varchar(36),
+    model  varchar(36),
+    color  varchar(36),
+    date   DATETIME,
+    lotID  varchar(36),
+    time   DATETIME,
+    type   enum ('InvalidPermit','ExpiredPermit','NoPermit'),
+    status enum ('paid', 'unpaid')
+);
+
+create table notification
+(
+    id          varchar(36),
+    contactinfo varchar(36),
+    citationid  varchar(36)
 );

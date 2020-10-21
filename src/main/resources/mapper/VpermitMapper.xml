@@ -114,4 +114,9 @@
     from upsdb.vpermit
     where identifier = #{identifier}
   </select>
+  <select id="selectByCarNum" resultType="com.csc540.ups.entity.VisitorPermit">
+    select *
+    from upsdb.vpermit
+    where carNum = #{carNum}
+  </select>
 </mapper>

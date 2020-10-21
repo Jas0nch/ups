@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class Notification implements Serializable {
 
-  private String uuid;
+  private String id;
   // univid for non-visitor, phone number for visitor
   private String contactInfo;
   private String citationID;
 
-  public String getUuid() {
-    return uuid;
+  public String getId() {
+    return id;
   }
 
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getContactInfo() {
