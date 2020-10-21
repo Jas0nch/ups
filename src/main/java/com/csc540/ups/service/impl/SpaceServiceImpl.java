@@ -2,6 +2,7 @@ package com.csc540.ups.service.impl;
 
 import com.csc540.ups.dao.SpaceDao;
 import com.csc540.ups.entity.Space;
+import com.csc540.ups.enums.SpaceStatus;
 import com.csc540.ups.enums.SpaceType;
 import com.csc540.ups.service.SpaceService;
 import java.util.List;
@@ -16,7 +17,8 @@ public class SpaceServiceImpl implements SpaceService {
 
   @Override
   public void insert(Space space) {
-    spaceDao.insert(space.getUuid(), space.getSpaceNum(), space.getSpaceType(), space.getZoneID());
+    spaceDao.insert(space.getUuid(), space.getSpaceNum(), space.getSpaceType(), space.getZoneID(),
+        space.getSpaceStatus());
   }
 
   @Override
@@ -39,5 +41,9 @@ public class SpaceServiceImpl implements SpaceService {
     spaceDao.updateType(id, spaceType);
   }
 
+  @Override
+  public void updateStatus(String id, SpaceStatus status) {
+    spaceDao.updateStatus(id, status);
+  }
 
 }

@@ -12,6 +12,8 @@ import com.csc540.ups.service.SpaceService;
 import com.csc540.ups.service.UserService;
 import com.csc540.ups.service.VisitorPermitService;
 import com.csc540.ups.service.ZoneService;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -70,7 +72,9 @@ public class WebController implements WebMvcConfigurer {
     VisitorPermit permit = visitorPermitService.search(identifier);
     //    String permit = "test";
     m.addAttribute("permit", permit);
-    m.addAttribute("lotname", visitorPermitService.getLotName(permit.getIdentifier()));
+    if (permit != null) {
+      m.addAttribute("lotname", visitorPermitService.getLotName(permit.getIdentifier()));
+    }
 
     return "visitor";
   }
@@ -225,5 +229,21 @@ public class WebController implements WebMvcConfigurer {
     m.addAttribute("list", list);
 
     return "lots";
+  }
+
+  @GetMapping("/exitlot/{identifier}")
+  public String exitLot(Model m, @PathVariable("identifier") String identifier) {
+    VisitorPermit permit = visitorPermitService.search(identifier);
+    boolean res = visitorPermitService.ExitLot(permit);
+
+    if (res) {
+      return "visitor";
+    } else {
+      LocalDateTime fromDateTime = permit.getExpirationTime();
+      LocalDateTime toDateTime = LocalDateTime.now();
+
+      m.addAttribute("time", fromDateTime.until(toDateTime, ChronoUnit.HOURS));
+      return "overage";
+    }
   }
 }

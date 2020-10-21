@@ -3,6 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.csc540.ups.dao.SpaceDao">
+  <insert id="insert">
+    insert into upsdb.space (id, spaceNum, type, zoneID, status)
+    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            #{zoneID}, #{status, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
+  </insert>
+
   <resultMap id="spaceResult" type="com.csc540.ups.entity.Space">
 
     <id column="id" jdbcType="VARCHAR" property="uuid"></id>
@@ -14,23 +20,19 @@
 
     <result column="zoneid" jdbcType="VARCHAR" property="zoneID"></result>
 
-
+    <result column="status" javaType="com.csc540.ups.enums.SpaceStatus"
+      property="spaceStatus"></result>
   </resultMap>
 
-  <insert id="insert">
-    insert into upsdb.space (id, spaceNum, type, zoneID)
-    values (#{id}, #{spaceNum}, #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
-            #{zoneID})
-  </insert>
 
-
-  <select id="select" resultMap="spaceResult">
+  <select id="select" resultType="com.csc540.ups.entity.Space">
     select *
     from upsdb.space
     where id = #{id}
   </select>
 
   <select id="selectAllByZoneID" resultMap="spaceResult">
+    <!--  <select id="selectAllByZoneID" resultType="com.csc540.ups.entity.Space">-->
     select *
     from upsdb.space
     where zoneid = #{zoneID}
@@ -45,6 +47,11 @@
   <update id="updateType">
     update upsdb.space
     set type = #{type, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+    where ID = #{id}
+  </update>
+  <update id="updateStatus">
+    update upsdb.space
+    set status = #{status, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
     where ID = #{id}
   </update>
 </mapper>

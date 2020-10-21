@@ -1,6 +1,7 @@
 package com.csc540.ups.service;
 
 import com.csc540.ups.entity.Space;
+import com.csc540.ups.enums.SpaceStatus;
 import com.csc540.ups.enums.SpaceType;
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface SpaceService {
   void update(Space space);
 
   void updateType(String id, SpaceType spaceType);
+
+  void updateStatus(String id, SpaceStatus spaceStatus);
 }

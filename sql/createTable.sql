@@ -15,7 +15,8 @@ create table space
     ID       varchar(36) primary key,
     spaceNum int,
     type     enum ('regular','electric','handicap'),
-    zoneID   varchar(36)
+    zoneID   varchar(36),
+    status   enum ('use','used')
 );
 
 create table zone

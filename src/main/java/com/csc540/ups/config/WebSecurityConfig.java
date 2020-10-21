@@ -18,7 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.anonymous().principal("guest").authorities("guest")
 				.and()
 				.authorizeRequests()
-				.antMatchers("/test", "/login", "/visitor", "/searchVisitorPermit", "/requestVisitorPermit")
+				.antMatchers("/test", "/login", "/visitor", "/searchVisitorPermit", "/requestVisitorPermit",
+						"/exitlot/**")
 				.permitAll()
 				.and()
 				.authorizeRequests()

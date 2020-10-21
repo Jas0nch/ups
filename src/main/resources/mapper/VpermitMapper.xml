@@ -91,6 +91,11 @@
       </if>
     </trim>
   </insert>
+  <update id="updateSpaceNum">
+    update upsdb.vpermit
+    set spaceNum= -1
+    where identifier = #{upsdb.vpermit}
+  </update>
   <resultMap id="BaseResultMap" type="com.csc540.ups.entity.VisitorPermit">
     <result column="spaceNum" jdbcType="INTEGER" property="spaceNum"/>
     <result column="startTime" jdbcType="TIMESTAMP" property="startTime"/>

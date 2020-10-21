@@ -13,4 +13,6 @@ public interface VpermitDao {
   int insertSelective(VisitorPermit record);
 
   VisitorPermit select(String identifier);
+
+  void updateSpaceNum(String identifier);
 }

@@ -8,9 +8,11 @@ import com.csc540.ups.entity.Vehicle;
 import com.csc540.ups.entity.VisitorPermit;
 import com.csc540.ups.entity.Zone;
 import com.csc540.ups.enums.PermitType;
+import com.csc540.ups.enums.SpaceStatus;
 import com.csc540.ups.enums.SpaceType;
 import com.csc540.ups.enums.ZoneType;
 import com.csc540.ups.service.LotService;
+import com.csc540.ups.service.SpaceService;
 import com.csc540.ups.service.VisitorPermitService;
 import com.csc540.ups.service.ZoneService;
 import java.time.LocalDateTime;
@@ -25,6 +27,9 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
   LotService lotService;
   @Autowired
   ZoneService zoneService;
+
+  @Autowired
+  SpaceService spaceService;
 
   @Resource
   VpermitDao vpermitDao;
@@ -58,7 +63,7 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
         }
       }
 
-      if (space == null) {
+      if (space == null || space.getSpaceStatus() == SpaceStatus.used) {
         return null;
       }
 
@@ -92,6 +97,8 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
           vehicle.getColor(),
           vehicle.getLicensePlate());
 
+      spaceService.updateStatus(space.getUuid(), SpaceStatus.used);
+
       return visitorPermit;
     }
 
@@ -112,5 +119,21 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
   public String getLotName(String identifier) {
     String lotID = search(identifier).getLotID();
     return lotService.select(lotID).getName();
+  }
+
+  @Override
+  public boolean ExitLot(VisitorPermit permit) { // true overage, false is on time
+
+    ParkingLot lot = lotService.select(permit.getLotID());
+
+    for (Space s : lot.getSpaces()) {
+      if (s.getSpaceNum() == permit.getSpaceNum() && s.getSpaceType() == permit.getSpaceType()) {
+        spaceService.updateStatus(s.getUuid(), SpaceStatus.use);
+        vpermitDao.updateSpaceNum(permit.getIdentifier());
+        return !permit.getExpirationTime().isBefore(LocalDateTime.now());
+      }
+    }
+
+    return false;
   }
 }
