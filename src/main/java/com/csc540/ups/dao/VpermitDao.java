@@ -17,4 +17,6 @@ public interface VpermitDao {
   void updateSpaceNum(String identifier);
 
   VisitorPermit selectByCarNum(String carNum);
+
+  VisitorPermit selectByLotIDAndSpaceNum(String lotID, int spaceNum);
 }

@@ -53,7 +53,7 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
   }
 
   @Override
-  public NonVisitorPermit getPermitByUUID(String univid) {
+  public NonVisitorPermit getPermitByUnivID(String univid) {
     NonVisitorPermit permit = nvpermitDao.selectByUnivID(univid);
 
     if (permit != null) {
@@ -69,7 +69,7 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
     return permit;
   }
 
-  public void ChangeVehicle(String identifier, String univid, Vehicle vehicle, int i) {
+  public void changeVehicle(String identifier, String univid, Vehicle vehicle, int i) {
     NonVisitorPermit permit = nvpermitDao.selectByUnivID(univid);
     if (!permit.getIdentifier().equals(identifier)) {
       return;
@@ -97,5 +97,31 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
   @Override
   public NonVisitorPermit findPermitByCarNum(String carNum) {
     return nvpermitDao.selectByCarNum(carNum);
+  }
+
+  @Override
+  public boolean checkValidParking(String identifier) {
+    NonVisitorPermit permit = getPermitByIdentifier(identifier);
+    if (permit != null && permit.getPermitType() == PermitType.Employee) {
+      return !permit.getExpirationTime().isBefore(LocalDateTime.now());
+    } else if (permit != null && permit.getPermitType() == PermitType.Student) {
+      LocalDateTime time = LocalDateTime.now();
+      return !permit.getExpirationTime().isBefore(time);
+
+//      if  (time.getHour() >= 17 || time.getHour() <= 9 || time.getDayOfWeek() == DayOfWeek.SATURDAY
+//          || time.getDayOfWeek() == DayOfWeek.SUNDAY){
+//        return true;
+//      }
+//      else {
+//        return false;
+//      }
+    }
+
+    return true;
+  }
+
+  @Override
+  public NonVisitorPermit getPermitByIdentifier(String identifier) {
+    return nvpermitDao.selectByIdentifier(identifier);
   }
 }

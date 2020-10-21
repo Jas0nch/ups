@@ -140,6 +140,37 @@
   <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
      th:if="${permit.getSpaceNum() != -1}"
      th:href="@{'/exitlot/' + ${permit.getIdentifier()}}">Exit Lot</a>
+
+  <div th:if="${ci}!=null">
+    <h3>Citation Info</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Citation ID</th>
+        <th scope="col">Car Number</th>
+        <th scope="col">Car Model</th>
+        <th scope="col">Car Color</th>
+        <th scope="col">Date</th>
+        <th scope="col">Type</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="c : ${ci}">
+        <th scope="row" th:text="${c.getId()}"></th>
+        <td th:text="${c.getCarNum()}"/>
+        <td th:text="${c.getModel()}"/>
+        <td th:text="${c.getColor()}"/>
+        <td th:text="${c.getDate()}"/>
+        <td th:text="${c.getType()}"/>
+        <td>
+          <a aria-pressed="true" class="btn btn-secondary btn-lg active" role="button"
+             th:href="@{'/pay/' + ${c.getId()} }">Pay</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 

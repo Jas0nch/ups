@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csc540.ups.dao.NotificationDao">
+  <insert id="insert" keyColumn="id" keyProperty="id"
+    parameterType="com.csc540.ups.entity.Notification" useGeneratedKeys="true">
+    insert into upsdb.notification (contactInfo, citationID)
+    values (#{contactInfo,jdbcType=VARCHAR}, #{citationID,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="com.csc540.ups.entity.Notification" useGeneratedKeys="true">
+    insert into upsdb.notification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contactInfo != null">
+        contactInfo,
+      </if>
+      <if test="citationID != null">
+        citationID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contactInfo != null">
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="citationID != null">
+        #{citationID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.csc540.ups.entity.Notification">
+    <result column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="contactInfo" jdbcType="VARCHAR" property="contactInfo"/>
+    <result column="citationID" jdbcType="VARCHAR" property="citationID"/>
+  </resultMap>
+</mapper>

@@ -122,7 +122,7 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
   }
 
   @Override
-  public boolean ExitLot(VisitorPermit permit) { // true overage, false is on time
+  public boolean exitLot(VisitorPermit permit) { // true overage, false is on time
 
     ParkingLot lot = lotService.select(permit.getLotID());
 
@@ -140,5 +140,32 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
   @Override
   public VisitorPermit selectByCarNum(String carNum) {
     return vpermitDao.selectByCarNum(carNum);
+  }
+
+  @Override
+  public boolean checkValidParking(int spaceNum, String lotName, String licensePlate) {
+    LocalDateTime time = LocalDateTime.now();
+
+    ParkingLot lot = lotService.findByName(lotName);
+    if (lot == null) {
+      return true;
+    }
+
+    VisitorPermit visitorPermit = vpermitDao.selectByLotIDAndSpaceNum(lot.getId(), spaceNum);
+    if (visitorPermit == null) {
+      return true;
+    }
+
+    Vehicle vehicle = vehicleDao.select(visitorPermit.getCarNum());
+
+    if (vehicle == null) {
+      return true;
+    }
+
+    if (!vehicle.getLicensePlate().equals(licensePlate)) {
+      return false;
+    }
+
+    return !visitorPermit.getExpirationTime().isBefore(time);
   }
 }

@@ -50,6 +50,8 @@ public class WebController implements WebMvcConfigurer {
   UserService userService;
   @Autowired
   NonVisitorPermitService nonVisitorPermitService;
+  @Autowired
+  CitationService citationService;
 
   @ModelAttribute
   @RequestMapping(value = "/test")
@@ -79,6 +81,12 @@ public class WebController implements WebMvcConfigurer {
     m.addAttribute("permit", permit);
     if (permit != null) {
       m.addAttribute("lotname", visitorPermitService.getLotName(permit.getIdentifier()));
+
+      if (permit != null) {
+        List<Citation> citations = citationService.selectUnpaidByCarNum(permit.getCarNum());
+
+        m.addAttribute("ci", citations);
+      }
     }
 
     return "visitor";
@@ -120,9 +128,6 @@ public class WebController implements WebMvcConfigurer {
 
     return "visitor";
   }
-
-  @Autowired
-  CitationService citationService;
 
   @GetMapping("/assignpermit")
   public String assignPermit() {
@@ -231,7 +236,7 @@ public class WebController implements WebMvcConfigurer {
   @GetMapping("/exitlot/{identifier}")
   public String exitLot(Model m, @PathVariable("identifier") String identifier) {
     VisitorPermit permit = visitorPermitService.search(identifier);
-    boolean res = visitorPermitService.ExitLot(permit);
+    boolean res = visitorPermitService.exitLot(permit);
 
     if (res) {
       return "visitor";
@@ -274,7 +279,7 @@ public class WebController implements WebMvcConfigurer {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     User user = userService.login(authentication.getName());
 
-    nonVisitorPermitService.ChangeVehicle(identifier, user.getId(), vehicle, i);
+    nonVisitorPermitService.changeVehicle(identifier, user.getId(), vehicle, i);
 
     return "redirect:/hello";
   }
@@ -284,7 +289,7 @@ public class WebController implements WebMvcConfigurer {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     User user = userService.login(authentication.getName());
 
-    NonVisitorPermit permit = nonVisitorPermitService.getPermitByUUID(user.getId());
+    NonVisitorPermit permit = nonVisitorPermitService.getPermitByUnivID(user.getId());
 
     if (permit != null) {
       List<Citation> citations = citationService.selectUnpaidByCarNum(permit.getCarNum());
@@ -309,18 +314,48 @@ public class WebController implements WebMvcConfigurer {
   public String issueForm(
       @RequestParam("carNum") String carNum,
       @RequestParam("lotName") String lotName,
-      @RequestParam("citationType") CitationType citationType
-  ) {
+      @RequestParam("citationType") CitationType citationType) {
     citationService.issue(carNum, lotName, citationType, CitationStatus.unpaid);
 
     return "redirect:/hello";
   }
 
   @GetMapping("/pay/{id}")
-  public String pay(
-      @PathVariable("id") String id
-  ) {
+  public String pay(@PathVariable("id") String id) {
     citationService.pay(id);
     return "redirect:/hello";
+  }
+
+  @GetMapping("/checkVP")
+  public String checkVP() {
+    return "checkVP";
+  }
+
+  @GetMapping("/checkVPform")
+  public String checkVPform(
+      @RequestParam("spaceNum") int spaceNum,
+      @RequestParam("lotName") String lotName,
+      @RequestParam("licensePlate") String licensePlate) {
+    boolean res = visitorPermitService.checkValidParking(spaceNum, lotName, licensePlate);
+    if (res) {
+      return "redirect:valid";
+    } else {
+      return "redirect:notvalid";
+    }
+  }
+
+  @GetMapping("/checkNVP")
+  public String checkNVP() {
+    return "checkNVP";
+  }
+
+  @GetMapping("/checkNVPform")
+  public String checkNVPform(@RequestParam("identifier") String identifier) {
+    boolean res = nonVisitorPermitService.checkValidParking(identifier);
+    if (res) {
+      return "redirect:valid";
+    } else {
+      return "redirect:notvalid";
+    }
   }
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+  <link crossorigin="anonymous"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        rel="stylesheet">
+
+  <!--  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>-->
+  <!--  <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
+  <title>UPS</title>
+</head>
+<body>
+<div>
+  <h3 text="Check Visitor Parking"></h3>
+  <form class="form-horizontal" method="get" style="margin: 30px"
+        th:action="@{/checkVPform}">
+    <div class="form-group">
+      <label for="spaceNum">Space Number:</label>
+      <input class="form-control" id="spaceNum" name="spaceNum" placeholder="Enter Space Number"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="lotName">Lot Name:</label>
+      <input class="form-control" id="lotName" name="lotName" placeholder="Enter Lot Name"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label for="licensePlate">License Plate:</label>
+      <input class="form-control" id="licensePlate" name="licensePlate"
+             placeholder="Enter License Plate"
+             type="text">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Check</button>
+  </form>
+</div>
+</body>
+</html>

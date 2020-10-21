@@ -119,4 +119,10 @@
     from upsdb.vpermit
     where carNum = #{carNum}
   </select>
+  <select id="selectByLotIDAndSpaceNum" resultType="com.csc540.ups.entity.VisitorPermit">
+    select *
+    from upsdb.vpermit
+    where spaceNum = #{spaceNum}
+      and lotID = #{lotID}
+  </select>
 </mapper>

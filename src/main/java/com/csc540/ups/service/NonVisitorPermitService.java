@@ -19,9 +19,15 @@ public interface NonVisitorPermitService {
       String color,
       String licensePlate);
 
-  NonVisitorPermit getPermitByUUID(String univid);
+  NonVisitorPermit getPermitByUnivID(String univid);
 
-  void ChangeVehicle(String identifier, String univid, Vehicle vehicle, int i);
+  NonVisitorPermit getPermitByIdentifier(String identifier);
+
+  void changeVehicle(String identifier, String univid, Vehicle vehicle, int i);
 
   NonVisitorPermit findPermitByCarNum(String carNum);
+
+  boolean checkValidParking(String identifier);
+
+
 }

@@ -22,7 +22,9 @@ public interface VisitorPermitService {
 
   String getLotName(String identifier);
 
-  boolean ExitLot(VisitorPermit permit);
+  boolean exitLot(VisitorPermit permit);
 
   VisitorPermit selectByCarNum(String carNum);
+
+  boolean checkValidParking(int spaceNum, String lotName, String licensePlate);
 }
