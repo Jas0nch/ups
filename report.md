@@ -1,0 +1,84 @@
+### 1. ER DIAGRAM
+
+![er](/Users/stancao/Project/Course Projects/CSC540 Projects/ups/er.jpg)
+
+### 2. SQL definitions
+
+Please see ./sql/ folder for sql file.
+
+### 3. Analysis of Constraints
+
+Constraints:
+
+1. The Zone must have a lotID to associate with a Lot, but I did the work in code when create a Lot or assign a Zone to a Lot. So this can be removed from the database. In my design, all the data in database should be generated from the Application. The Space and Zone are the same.
+
+2. Space has a zoneID to associate with a Zone. So the check if the parking is in a right zone can be implemented by check if the Zone with that zoneID has the same Zone type with permit. This will use join if implemented in database. So this part is removed from database.
+
+3. The NonVisitor Permit is associated with a Lot, with a User, and also a Vehicle. And if we implement this in database, we need to join 4 tables and this is slow. So I implement it in Application layer.
+
+4. A User can have only one Permit. This can be implemented in database with both table have the same primary key. But the Permit table are required to have a identifier as a primary key. So I implemented it in Application layer.
+
+
+
+Constraints must implemented in Application layer:
+
+1. Permit can be create after its expiration time. And we must use the same identifier for that Permit if it is a renew. This can't be implemented in a database constraint.
+2. The Vehicle1 and Vehicle2 of a Permit can't be the same one. And this can only implemented in Application layer since we can't let two columns of Permit table have the "unique" keyword.
+3. The Vehicle of a new Permit can't a Vehicle of an existing Permit. And this can't be implemented in database.
+4. Visitor Permit is associated with a Space in a Lot. And we can't use just a Space ID to find if the space is valid. So this can't be implemented in database.
+
+### 4. Functional Dependencies
+
+Table nvpermit:
+
+uuid → uuid, permitType, carNum, carNums2, identifier, startdate, spaceType, univid
+
+Table vpermit:
+
+uuid → permitType, uuid, identifier, carNum, Startdate, Starttime, duration, spacetype, spaceNum
+
+Table citation:
+
+id → id, carNum, model, color, date, lotID, time, type, status
+
+Table vehicle:
+
+carNum → carNum, manufacturer, model, year, color, licensePlate
+
+Table lot:
+
+ID → ID, name, Address, spaceNum
+
+Table space:
+
+ID → ID, spaceNum, type, zoneID, status
+
+Table upsuser:
+
+ID → ID, username, password, role
+
+Table zone:
+
+ID → ID, spaceNum, name, startNum, lotID
+
+lot.ID, lot.spaceNum → space. ID
+
+space.ID → zone.ID
+
+lot.ID, lot.spaceNum → zone.ID
+
+citation.ID → citation.carNum
+
+citation.carNum → vpermit.carNum
+
+vpermit.carNum → vpermit.uuid
+
+citation.ID → vpermit.uuid
+
+citation.ID → citation.carNum
+
+citation.carNum → nvpermit.carNum
+
+nvpermit.carNum → nvpermit.uuid
+
+citation.ID → nvpermit.uuid

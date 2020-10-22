@@ -20,6 +20,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CitationServiceImpl implements CitationService {
@@ -43,6 +44,7 @@ public class CitationServiceImpl implements CitationService {
   @Resource
   ParkingLotDao parkingLotDao;
 
+  @Transactional
   @Override
   public Citation issue(String carNum, String lotName, CitationType citationType,
       CitationStatus status) {
@@ -98,6 +100,7 @@ public class CitationServiceImpl implements CitationService {
     return citationDao.selectByCarNum(carNum, CitationStatus.unpaid);
   }
 
+  @Transactional
   @Override
   public void pay(String id) {
     citationDao.updateStatusByID(CitationStatus.paid, id);

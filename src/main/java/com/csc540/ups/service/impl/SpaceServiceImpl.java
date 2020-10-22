@@ -8,6 +8,7 @@ import com.csc540.ups.service.SpaceService;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SpaceServiceImpl implements SpaceService {
@@ -15,6 +16,7 @@ public class SpaceServiceImpl implements SpaceService {
   @Resource
   public SpaceDao spaceDao;
 
+  @Transactional
   @Override
   public void insert(Space space) {
     spaceDao.insert(space.getUuid(), space.getSpaceNum(), space.getSpaceType(), space.getZoneID(),
@@ -31,16 +33,19 @@ public class SpaceServiceImpl implements SpaceService {
     return spaceDao.selectAllByZoneID(zoneID);
   }
 
+  @Transactional
   @Override
   public void update(Space space) {
     spaceDao.update(space.getUuid(), space.getZoneID());
   }
 
+  @Transactional
   @Override
   public void updateType(String id, SpaceType spaceType) {
     spaceDao.updateType(id, spaceType);
   }
 
+  @Transactional
   @Override
   public void updateStatus(String id, SpaceStatus status) {
     spaceDao.updateStatus(id, status);

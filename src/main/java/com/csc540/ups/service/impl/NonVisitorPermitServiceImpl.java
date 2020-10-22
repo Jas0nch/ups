@@ -10,6 +10,7 @@ import com.csc540.ups.service.NonVisitorPermitService;
 import java.time.LocalDateTime;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
@@ -20,6 +21,7 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
   @Resource
   VehicleDao vehicleDao;
 
+  @Transactional
   @Override
   public NonVisitorPermit assignPermit(
       String univid,
@@ -69,6 +71,7 @@ public class NonVisitorPermitServiceImpl implements NonVisitorPermitService {
     return permit;
   }
 
+  @Transactional
   public void changeVehicle(String identifier, String univid, Vehicle vehicle, int i) {
     NonVisitorPermit permit = nvpermitDao.selectByUnivID(univid);
     if (!permit.getIdentifier().equals(identifier)) {

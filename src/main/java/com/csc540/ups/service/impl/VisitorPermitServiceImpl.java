@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VisitorPermitServiceImpl implements VisitorPermitService {
@@ -37,6 +38,7 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
   @Resource
   VehicleDao vehicleDao;
 
+  @Transactional
   @Override
   public VisitorPermit getPermit(
       int spaceNum,
@@ -121,6 +123,7 @@ public class VisitorPermitServiceImpl implements VisitorPermitService {
     return lotService.select(lotID).getName();
   }
 
+  @Transactional
   @Override
   public boolean exitLot(VisitorPermit permit) { // true overage, false is on time
 

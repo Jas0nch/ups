@@ -8,6 +8,7 @@ import com.csc540.ups.service.ZoneService;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ZoneServiceImpl implements ZoneService {
@@ -34,6 +35,7 @@ public class ZoneServiceImpl implements ZoneService {
     return zones;
   }
 
+  @Transactional
   @Override
   public void insertAndUpdate(Zone z) {
     zoneDao.insert(z.getUuid(), z.getLotID(), z.getName(), z.getSpaceNum(), z.getStartNum());
@@ -43,6 +45,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
   }
 
+  @Transactional
   @Override
   public void insert(Zone z) {
     zoneDao.insert(z.getUuid(), z.getLotID(), z.getName(), z.getSpaceNum(), z.getStartNum());

@@ -16,6 +16,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LotServiceImpl implements LotService {
@@ -29,6 +30,7 @@ public class LotServiceImpl implements LotService {
   @Resource
   ParkingLotDao parkingLotDao;
 
+  @Transactional
   @Override
   public ParkingLot createLot(
       String name, String address, int numberOfSpace, int beginNumOfSpace, String initialZone) {
@@ -48,6 +50,7 @@ public class LotServiceImpl implements LotService {
     return lot;
   }
 
+  @Transactional
   @Override
   public Zone AssignZoneToLot(int total, int start, String zoneName, String lotID) {
     ParkingLot lot = select(lotID);
@@ -168,6 +171,7 @@ public class LotServiceImpl implements LotService {
     return lot;
   }
 
+  @Transactional
   @Override
   public void AssignTypeToSpace(String name, int spaceNum, SpaceType spaceType) {
     ParkingLot lot = parkingLotDao.findByName(name);
